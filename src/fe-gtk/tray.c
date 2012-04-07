@@ -134,8 +134,7 @@ fe_tray_set_balloon(const char *title, const char *text)
 		return;
 
 	stext = strip_color(text, -1, STRIP_ALL);
-	n = notify_notification_new(title, stext, NULL, NULL);
-	notify_notification_attach_to_status_icon(n, sticon);
+	n = notify_notification_new(title, stext, sticon);
 	notify_notification_set_timeout(n, 20000);
 	notify_notification_show(n, NULL);
 
@@ -189,10 +188,10 @@ tray_stop_flash(void)
 		nets = tray_count_networks ();
 		chans = tray_count_channels ();
 		if (nets)
-			tray_set_tipf(_("conspire: Connected to %u networks and %u channels"),
+			tray_set_tipf(_("GChat: Connected to %u networks and %u channels"),
 								nets, chans);
 		else
-			tray_set_tipf("conspire: %s", _("Not connected."));
+			tray_set_tipf("GChat: %s", _("Not connected."));
 	}
 
 	if (custom_icon1)
@@ -491,15 +490,15 @@ process_message_highlight(gpointer *params)
 		/* FIXME: hides any previous private messages */
 		tray_hilight_count++;
 		if (tray_hilight_count == 1)
-			tray_set_tipf(_("conspire: Highlighted message from: %s (%s)"),
+			tray_set_tipf(_("GChat: Highlighted message from: %s (%s)"),
 								from, sess->channel ? sess->channel : _("unknown channel"));
 		else
-			tray_set_tipf(_("conspire: %u highlighted messages, latest from: %s (%s)"),
+			tray_set_tipf(_("GChat: %u highlighted messages, latest from: %s (%s)"),
 								tray_hilight_count, from, sess->channel ? sess->channel : _("unknown channel"));
 	}
 
 	if (prefs.input_balloon_hilight)
-		tray_set_balloonf(message, _("conspire: Highlighted message from: %s (%s)"),
+		tray_set_balloonf(message, _("GChat: Highlighted message from: %s (%s)"),
 								 from, sess->channel ? sess->channel : _("unknown channel"));
 }
 
@@ -519,14 +518,14 @@ process_message(gpointer *params)
 
 		tray_pub_count++;
 		if (tray_pub_count == 1)
-			tray_set_tipf(_("conspire: New public message from: %s (%s)"),
+			tray_set_tipf(_("GChat: New public message from: %s (%s)"),
 								from, sess->channel ? sess->channel : _("unknown channel"));
 		else
-			tray_set_tipf(_("conspire: %u new public messages."), tray_pub_count);
+			tray_set_tipf(_("GChat: %u new public messages."), tray_pub_count);
 	}
 
 	if (prefs.input_balloon_chans)
-		tray_set_balloonf(message, _("conspire: New public message from: %s (%s)"),
+		tray_set_balloonf(message, _("GChat: New public message from: %s (%s)"),
 								 from, sess->channel ? sess->channel : _("unknown channel"));
 }
 
@@ -550,15 +549,15 @@ process_private(gpointer *params)
 
 		tray_priv_count++;
 		if (tray_priv_count == 1)
-			tray_set_tipf(_("conspire: Private message from: %s (%s)"),
+			tray_set_tipf(_("GChat: Private message from: %s (%s)"),
 								from, network);
 		else
-			tray_set_tipf(_("conspire: %u private messages, latest from: %s (%s)"),
+			tray_set_tipf(_("GChat: %u private messages, latest from: %s (%s)"),
 								tray_priv_count, from, network);
 	}
 
 	if (prefs.input_balloon_priv)
-		tray_set_balloonf(message, _("conspire: Private message from: %s (%s)"),
+		tray_set_balloonf(message, _("GChat: Private message from: %s (%s)"),
 								 from, network);
 }
 
@@ -584,15 +583,15 @@ process_invited(gpointer *params)
 
 		tray_invite_count++;
 		if (tray_invite_count == 1)
-			tray_set_tipf(_("conspire: Invite from: %s (%s) to %s"),
+			tray_set_tipf(_("GChat: Invite from: %s (%s) to %s"),
 								from, network, channel);
 		else
-			tray_set_tipf(_("conspire: %u private messages, latest from: %s (%s) to %s"),
+			tray_set_tipf(_("GChat: %u private messages, latest from: %s (%s) to %s"),
 								tray_priv_count, from, network, channel);
 	}
 
 	if (prefs.input_balloon_priv)
-		tray_set_balloonf("", _("conspire: Invite from: %s (%s) to %s"),
+		tray_set_balloonf("", _("GChat: Invite from: %s (%s) to %s"),
 								 from, network, channel);
 }
 
@@ -612,15 +611,15 @@ process_dcc(gpointer *params)
 
 		tray_dcc_count++;
 		if (tray_dcc_count == 1)
-			tray_set_tipf(_("conspire: DCC offer from: %s (%s)"),
+			tray_set_tipf(_("GChat: DCC offer from: %s (%s)"),
 								nick, network ? network : "unknown network");
 		else
-			tray_set_tipf(_("conspire: %u DCC offers, latest from: %s (%s)"),
+			tray_set_tipf(_("GChat: %u DCC offers, latest from: %s (%s)"),
 								tray_dcc_count, nick, network ? network : "unknown network");
 	}
 
 	if (prefs.input_balloon_priv)
-		tray_set_balloonf("", _("conspire: DCC offer from: %s (%s)"),
+		tray_set_balloonf("", _("GChat: DCC offer from: %s (%s)"),
 								nick, network ? network : "unknown network");
 }
 
