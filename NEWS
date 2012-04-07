@@ -1,0 +1,99 @@
+Conspire is mostly dead. It's been abandoned by nenolod for xirssi.
+It is highly recommended to switch to that. jdhore may be making minor 
+changes to it, but it is effectively dead.
+
+conspire 1.0-beta1 (06-16-2009):
+  
+  * Remove STARTTLS--only inspircd supports it, and it doesn't work all that well anyway.
+  * Preliminary work on a new Python plugin.
+  * Updated French translation.
+  * Preliminary IRCPP support via a plugin.
+  * Preliminary Windows port; does not include plugins and has a major graphical bug, but
+    is otherwise usable.
+  * New iconset based on a Tango set on gnomelook.org.
+  * Rewritten event formatter for great sanity.
+  * DCC64 is now always supported, as glib guarantees gint64 presence now.
+  * /exec is now a plugin.
+  * Support more CTCP messages (USERINFO, particularly).
+  * /foreach query and /foreach local-query added.
+
+conspire 0.20~beta4 (07-05-2008):
+
+  * Make queue more aggressive.
+
+conspire 0.20~beta3 (07-05-2008):
+
+  * Fix compilation without GNUTLS.
+  * Fix longstanding bug where the queue system is not unicode-safe.
+
+conspire 0.20~beta2 (06-22-2008):
+
+  * Add support for STARTTLS; this is used by InspIRCd 1.2 or later.
+    For details about the protocol, see http://inspircd.org/wiki/STARTTLS_Documentation
+  * Use NotifyNotification objects instead of spawning a process and calling
+    notify-send. This allows for superior desktop integration, but causes libnotify
+    to become a hard dependency. This seems ok though, as most users already have it.
+  * Rewrite capability negotiation subsystem to be asynchronous.
+  * Adjust height of cell renderers to fit more entries into the chanview and userlist.
+    (This idea was taken from the XChat 2.8.6 release.)
+  * Implement a new TreeView widget which looks similar to that of Gossip and Pidgin.
+  * Add a description field for plugins in PLUGIN_DECLARE().
+  * Improve the Plugins GUI significantly.
+
+conspire 0.20~beta1 (06-07-2008):
+
+  * Entirely new event processing engine and signals API.
+  * DBus support dropped; use the new Plugin API.
+  * Support for XChat plugins dropped.
+  * New plugin API, things are not entirely set in stone yet.
+    (Some example plugins are in src/plugins, if you have any questions,
+     ask on our IRC channel.)
+  * Several UI improvements, including more use of context-sensitive menus.
+  * New implementation of XText using Cairo.
+  * Replace old message-splitting system for /say with new one for /msg, /me, and /say.
+  * Add support for CTCP TIME.
+  * /quit disconnects from one server again due to user request.
+  * /exit disconnects from all servers before exiting, similar to irssi.
+  * /all* has been replaced with /foreach.
+  * Restored options to the GUI that were removed in xchat.
+  * Add new options for new functionality provided in Conspire.
+
+conspire 0.12.0 (01-30-2008):
+
+  * Remove CTCP sound support; it's worthless.
+  * Handle CTCP replies in a better way.
+  * /quit now disconnects from all servers; to disconnect from one, use /disconnect instead.
+  * Improve coloured nicks support.
+  * Add support for CTCP CLIENTINFO.
+
+conspire 0.11.0 (01-16-2008):
+
+  * Fix several bugs in the SASL (IAL) implementation.
+  * Add regexp search and replace options.
+  * Implement support for immutable windows.
+  * Fix some SSL bugs.
+  * Rewrite the lowlevel configuration manager.
+  * Fix a long standing bug in the network editor: Remove didn't work.
+
+conspire 0.10.0 (01-01-2008):
+
+  * OpenSSL support has been removed in favour of GnuTLS.
+    As GnuTLS is 100% definitely licensed in compatibility with
+    the GPL, this means that distributions will be able to enable
+    the SSL support.
+  * Add support for extracting colours from your system's GTK+ theme.
+  * New icons care of Chris Fuenty.
+  * Add support for the MONITOR command on charybdis and ircd-ratbox
+    daemons (thanks to AndroSyn!)
+  * Fix a bug where the colourmap didn't match up with mIRC's colours.
+  * Remove inline pixbufs, reducing the binary size by a large amount.
+    Now pixbufs are loaded from disk, and can be replaced by editing
+    the PNG files in ${datadir}/conspire/pixmaps.
+  * Start to move some various aspects of the code to Mowgli.
+  * Add rudimentary launcher.
+  * Make /part accept "/part reason" syntax; where it parts from the
+    current channel.
+  * Add support for SASL. At the moment, SASL passwords are stored in
+    plain text. Eventually, they will be MD5'd or something. Additionally,
+    only the PLAIN mechanism is supported. Some servers support DH-BLOWFISH,
+    but that requires more work and will wait until 0.11.

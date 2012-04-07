@@ -1,0 +1,52 @@
+conspire Installation Guidelines and Tips
+=========================================
+
+Requirements
+------------
+
+Library files and development headers for the following libraries are required:
+
+* Glib (2.0 or higher)
+* GTK+ (2.10 or higher)
+* libsexy
+* libnotify
+* libmowgli (0.6 or higher)
+* build essentials (automake, gmake)
+
+Optional Dependencies
+---------------------
+
+For the following components, the specified libraries and development headers
+are required in order to make use of these features:
+
+* SSL support: GnuTLS
+* Spell-checking: libsexy
+* Internationalization: GNU gettext
+* Outbound regex substitution: GLib 2.14 or higher
+* Python plugin: python
+
+Compilation
+-----------
+
+To compile conspire, execute the following commands:
+
+$ ./configure
+$ make
+
+Installation
+------------
+
+After compiling, become the superuser, and execute:
+
+# make install
+
+Other Options
+-------------
+
+To get a full list of compile options, execute:
+
+$ ./configure --help
+
+If GNU gettext is not installed, use:
+
+$ ./configure --disable-nls

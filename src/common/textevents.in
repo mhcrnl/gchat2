@@ -1,0 +1,508 @@
+Add Notify
+%C27*$t%C27$1 added to notify list.
+1
+
+Ban List
+%C27*$t%C27$1 Banlist: %C3$4 %C4$2 %C5$3%O
+4
+
+Beep
+
+0
+
+Change Nick
+%C27*$t%C27$1 is now known as $2
+2
+
+Channel Action
+%C13*%O$t$1 $3%O
+3
+
+Channel Action Hilight
+%C13*%O$t%C8%B$1%B%O $3%O
+3
+
+Channel Creation
+%C27*$t%C27Channel $1 created on $2
+2
+
+Channel Join Error
+%C27*$t%C27Cannot join%C11 %B$1%O ($2).
+2
+
+Channel List
+
+0
+
+Channel List Entry
+%C27*$t%O%B$1%O%C27/%O$2%C27: %O$3%O
+3
+
+Channel Message
+%C2%H<%H$1%H>%H%O$t$4%O
+4
+
+Channel Mode Generic
+%C27*$t%C27$1 sets mode $2$3 $4
+4
+
+Channel Modes
+%C27*$t%C27Channel $1 modes: $2
+2
+
+Channel Msg Hilight
+%C8%B%H<%H$1%H>%H%O$t$4%O
+4
+
+Channel Notice
+%C12-%C13$1/$2%C12-%O$t$3%O
+3
+
+Connected
+%C27*$t%C27Connected. Now logging in..
+0
+
+Connecting
+%C27*$t%C27Connecting to %C11$1 %C14(%C11$2%C14)%C11 port %C11$3%C..
+3
+
+Connection Failed
+%C27*$t%C27Connection failed. Error: $1
+1
+
+CTCP Generic
+%C27*$t%C27Received a CTCP $1 from $2
+2
+
+CTCP Generic to Channel
+%C27*$t%C27Received a CTCP $1 from $2 (to $3)
+3
+
+CTCP Reply Generic
+%C27*$t%C27Received a CTCP reply $2 from $1: $3
+3
+
+CTCP Send
+%C3>%O$1%C3<%O$tCTCP $2%O
+2
+
+DCC CHAT Abort
+%C27*$t%C27DCC CHAT to %C11$1%O aborted.
+1
+
+DCC CHAT Connect
+%C27*$t%C27DCC CHAT connection established to %C11$1 %C14[%O$2%C14]%O
+2
+
+DCC CHAT Failed
+%C27*$t%C27DCC CHAT failed. Connection to $1 %C14[%O$2:$3%C14]%O lost.
+4
+
+DCC CHAT Offer
+%C27*$t%C27Received a DCC CHAT offer from $1
+1
+
+DCC CHAT Offering
+%C27*$t%C27Offering DCC CHAT to $1
+1
+
+DCC CHAT Reoffer
+%C27*$t%C27Already offering CHAT to $1
+1
+
+DCC Conection Failed
+%C27*$t%C27DCC $1 connect attempt to %C11$2%O failed (err=$3).
+3
+
+DCC Generic Offer
+%C27*$t%C27Received '$1%O' from $2
+2
+
+DCC Header
+%C24,18 Type  To/From    Status  Size    Pos     File         
+0
+
+DCC Malformed
+%C27*$t%C27Received a malformed DCC request from %C11$1%O.%010%C27*$t%C27Contents of packet: $2
+2
+
+DCC Offer
+%C27*$t%C27Offering %C11$1 %Cto %C11$2%O
+3
+
+DCC Offer Not Valid
+%C27*$t%C27No such DCC offer.
+0
+
+DCC RECV Abort
+%C27*$t%C27DCC RECV %C11$2%O to %C11$1%O aborted.
+2
+
+DCC RECV Complete
+%C27*$t%C27DCC RECV %C11$1%O from %C11$3%O complete %C14[%C11$4%O cps%C14]%O.
+4
+
+DCC RECV Connect
+%C27*$t%C27DCC RECV connection established to %C11$1 %C14[%O$2%C14]%O
+3
+
+DCC RECV Failed
+%C27*$t%C27DCC RECV $1 ($2) failed. Connection to $3 lost.
+4
+
+DCC RECV File Open Error
+%C27*$t%C27DCC RECV: Cannot open $1 for writing ($2).
+2
+
+DCC Rename
+%C27*$t%C27The file %C11$1%C already exists, saving it as %C11$2%O instead.
+2
+
+DCC RESUME Request
+%C27*$t%C27%C11$1 %Chas requested to resume %C11$2 %Cfrom %C11$3%C.
+3
+
+DCC SEND Abort
+%C27*$t%C27DCC SEND %C11$2%O to %C11$1%O aborted.
+2
+
+DCC SEND Complete
+%C27*$t%C27DCC SEND %C11$1%O to %C11$2%O complete %C14[%C11$3%O cps%C14]%O.
+3
+
+DCC SEND Connect
+%C27*$t%C27DCC SEND connection established to %C11$1 %C14[%O$2%C14]%O
+3
+
+DCC SEND Failed
+%C27*$t%C27DCC SEND %C11$1%O failed. Connection to %C11$2%O lost.
+3
+
+DCC SEND Offer
+%C27*$t%C27You have offered %C11$3 %C14(%C11$1 %C27bytes%C14)%C27 to %C11$2%C27.
+3
+
+DCC Stall
+%C27*$t%C27DCC $1 %C11$2 %Cto %C11$3 %Cstalled - aborting.
+3
+
+DCC Timeout
+%C27*$t%C27DCC $1 %C11$2 %Cto %C11$3 %Ctimed out - aborting.
+3
+
+Delete Notify
+%C27*$t%C27$1 deleted from notify list.
+1
+
+Disconnected
+%C27*$t%C27Disconnected ($1).
+1
+
+Found IP
+%C27*$t%C27The IRC server is reporting your IP as $1.
+1
+
+Generic Message
+$1$t$2
+2
+
+Ignore Add
+%C27*$t%C27$1 added to ignore list.
+1
+
+Ignore Changed
+%C27*$t%C27Ignore on $1 has been changed.
+1
+
+Ignore Footer
+%C27*$t%C27End of ignore list.
+0
+
+Ignore Header
+%C27*$t%C27List of current ignores:
+0
+
+Ignore Remove
+%C27*$t%C27$1 removed from ignore list.
+1
+
+Ignorelist Empty
+%C27*$t%C27Ignore list is empty.
+0
+
+Ignorelist Entry
+%C27*$t%C27$1
+1
+
+Invited
+%C27*$t%C27You have been invited to $1 by $2 ($3).
+3
+
+Join
+%C27*$t%C27$1 ($3) has joined $2
+3
+
+Kick
+%C27*$t%C27$1 has kicked $2 from $3: $4
+4
+
+Killed
+%C27*$t%C27You have been killed by $1: $2
+2
+
+Message Send
+%C3>%O$1%C3<%O$t$2%O
+2
+
+Motd
+%C27*$t%O$1
+1
+
+MOTD Skipped
+%C27*$t%C27MOTD Skipped.
+0
+
+Nick Clash
+%C27*$t%O$1 already in use. Retrying with $2..
+2
+
+Nick Failed
+%C27*$t%ONickname already in use. Use /NICK to try another.
+0
+
+No DCC
+%C27*$t%C27No such DCC.
+0
+
+No Running Process
+%C27*$t%C27No process is currently running
+0
+
+Notice
+%C12-%C13$1%C12-%O$t$2%O
+2
+
+Notice Send
+%C3>%O$1%C3<%O$t$2%O
+2
+
+Notify Empty
+%C27*$t%C27Notify list is empty.
+0
+
+Notify Header
+%C24,18 %B  Notify List                           
+0
+
+Notify Number
+%C27*$t%C27$1 users in notify list.
+1
+
+Notify Offline
+%C27*$t%C27Notify: $1 is offline ($2).
+2
+
+Notify Online
+%C27*$t%C27Notify: $1 is online ($2).
+2
+
+Open Dialog
+
+0
+
+Part
+%C27*$t%C27$1 %C14(%O$2%C14)%C has left $3
+3
+
+Part with Reason
+%C27*$t%C27$1 %C14(%O$2%C14)%C has left $3: $4
+4
+
+Ping Reply
+%C27*$t%C27Ping reply from $1: $2 second(s)
+2
+
+Ping Timeout
+%C27*$t%C27No ping reply for $1 seconds, disconnecting.
+1
+
+Private Message
+%C12*%C13$1%C12*$t%O$2%O
+3
+
+Private Message to Dialog
+%C2%H<%H$1%H>%H%O$t$2%O
+3
+
+Process Already Running
+%C27*$t%C27A process is already running
+0
+
+Quit
+%C27*$t%C27$1 ($3) has quit: $2
+3
+
+Query Action
+%C13*%O$t$1 $3%O
+3
+
+Query Action Hilight
+%C13*%O$t%C8%B$1%B%O $3%O
+3
+
+Raw Modes
+%C27*$t%C27$1 sets mode: $2
+2
+
+Receive Wallops
+%C12-%C13$1/Wallops%C12-%O$t$2%O
+2
+
+Resolving User
+%C27*$t%C27Looking up IP number for%C11 $1%O..
+2
+
+Server Connected
+%C27*$t%C27Connected.
+0
+
+Server Error
+%C27*$t%C27$1%O
+1
+
+Server Lookup
+%C27*$t%C27Looking up %C11$1%C..
+1
+
+Server Notice
+%C27*%O$t$1
+2
+
+Server Text
+%C27*$t%O$1%O
+2
+
+Stop Connection
+%C27*$t%C27Stopped previous connection attempt (pid=$1)
+1
+
+Topic
+%C27*$t%C27Topic for $1 is $2
+2
+
+Topic Change
+%C27*$t%C27$1 has changed the topic to: $2
+3
+
+Topic Creation
+%C27*$t%C27Topic for $1 set by $2 at $3
+3
+
+Unknown Host
+%C27*$t%C27Unknown host. Maybe you misspelled it?
+0
+
+Users On Channel
+%C27*$t%C27%C11Users on $1:%C $2
+2
+
+WhoIs Authenticated
+%C22*%O$t%C28[%O$1%C28] %O$2%C27 $3
+3
+
+WhoIs Away Line
+%C27*$t%C27%C12[%O$1%C12] is away: $2
+2
+
+WhoIs Channel/Oper Line
+%C27*$t%C27%C12[%O$1%C12]%C $2
+2
+
+WhoIs Oper Line
+%C27*$t%C27%C12[%O$1%C12]%C $2
+2
+
+WhoIs End
+%C27*$t%C27%C12[%O$1%C12] %CEnd of WHOIS list.
+1
+
+WhoIs Identified
+%C27*$t%C27%C12[%O$1%C12] %C$2
+2
+
+WhoIs Idle Line
+%C27*$t%C27%C12[%O$1%C12]%O idle %C11$2%O
+2
+
+WhoIs Idle Line with Signon
+%C27*$t%C27%C12[%O$1%C12]%O idle %C11$2%O, signon: %C11$3%O
+3
+
+WhoIs Name Line
+%C27*$t%C27%C12[%O$1%C12] %C14(%O$2@$3%C14) %O: $4%O
+4
+
+WhoIs Real Host
+%C27*$t%C27%C12[%O$1%C12] %Oreal user@host %C11$2%O, real IP %C11$3%O
+4
+
+WhoIs Server Line
+%C27*$t%C27%C12[%O$1%C12]%O $2
+2
+
+WhoIs Special
+%C22*%O$t%C28[%O$1%C28]%O $2
+3
+
+You Join
+%C27*$t%C27Now talking on %C11$2%O
+3
+
+You Kicked
+%C27*$t%C27You have been kicked from $2 by $3: $4
+4
+
+You Part
+%C27*$t%C27You have left channel $3
+3
+
+You Part with Reason
+%C27*$t%C27You have left channel $3: $4
+4
+
+Your Action
+%C18*$t$1%O $2
+3
+
+Your Invitation
+%C27*$t%C27You've invited %C11$1%C to %C11$2%C (%C11$3%C)
+3
+
+Your Message
+%C31%H<%H$1%H>%H%O$t$2%O
+4
+
+Your Nick Changing
+%C27*$t%C27You are now known as $2
+2
+
+Netsplit
+%C23*%O$t%C23Netsplit: $1 <-> $2, quits: $3
+3
+
+Authenticated to Account
+%C23*%O$t%C23You have successfully authenticated to account '$1'.
+1
+
+Plugin Loaded
+%C23*%O$t%C23Plugin $1 version $2 successfully loaded.
+2
+
+Plugin Unloaded
+%C23*%O$t%C23Plugin $1 successfully unloaded.
+1
+
+Plugin Error
+%C23*%O$t%C23Couldn't load plugin $1: $2
+2
+

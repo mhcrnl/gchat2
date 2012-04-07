@@ -1,0 +1,20 @@
+- Conspire is mostly dead. It's been abandoned by nenolod for xirssi.
+  It is highly recommended to switch to that. jdhore may be making minor
+  changes to it, but it is effectively dead.
+
+TODO
+- Implement an awaylog for storing hilighted messages.
+- Separate IRC code from IRC-inspecific code.
+- Python plugin.
+
+IDEAS
+- Implement a sane theme engine
+- Add irssi-style tabcompletion alongside the bash-style implementation and
+  provide a toggle
+- Possibly implement hilight notifications through a pane above or below the
+  main view so users can see why they're being hilighted even if the message
+  has scrolled out of view or the user has scrolled up for whatever reason
+- Rewrite hilights to be more powerful than the current implementation, with
+  potential per-server/per-channel hilights support
+- Get rid of all "homebrew" tree/blahblahblah shit, replace with GLib/Mowgli
+  primitives where appropriate. [mostly done]
