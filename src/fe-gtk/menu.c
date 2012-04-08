@@ -873,7 +873,7 @@ menu_settings (GtkWidget * wid, gpointer none)
 static void
 menu_usermenu (void)
 {
-	editlist_gui_open (NULL, NULL, usermenu_list, _("conspire: User menu"),
+	editlist_gui_open (NULL, NULL, usermenu_list, _(DISPLAY_NAME ": User menu"),
 							 "usermenu", "usermenu.conf", 0);
 }
 
@@ -1129,21 +1129,21 @@ menu_pluginlist (void)
 static void
 menu_usercommands (void)
 {
-	editlist_gui_open (NULL, NULL, command_list, _("conspire: User Defined Commands"),
+	editlist_gui_open (NULL, NULL, command_list, _(DISPLAY_NAME ": User Defined Commands"),
 							 "commands", "commands.conf", usercommands_help);
 }
 
 static void
 menu_ulpopup (void)
 {
-	editlist_gui_open (NULL, NULL, popup_list, _("conspire: Userlist Popup menu"), "popup",
+	editlist_gui_open (NULL, NULL, popup_list, _(DISPLAY_NAME ": Userlist Popup menu"), "popup",
 							 "popup.conf", ulbutton_help);
 }
 
 static void
 menu_rpopup (void)
 {
-	editlist_gui_open (_("Text"), _("Replace with"), replace_list, _("conspire: Replace"), "replace",
+	editlist_gui_open (_("Text"), _("Replace with"), replace_list, _(DISPLAY_NAME ": Replace"), "replace",
 							 "replace.conf", 0);
 }
 
@@ -1151,7 +1151,7 @@ menu_rpopup (void)
 static void
 menu_regex (void)
 {
-	editlist_gui_open (_("Search for"), _("Replace with"), regex_replace_list, _("conspire: Regex Replace"), "regex_replace",
+	editlist_gui_open (_("Search for"), _("Replace with"), regex_replace_list, _(DISPLAY_NAME ": Regex Replace"), "regex_replace",
 			"regex_replace.conf", 0);
 }
 #endif
@@ -1159,7 +1159,7 @@ menu_regex (void)
 static void
 menu_urlhandlers (void)
 {
-	editlist_gui_open (NULL, NULL, urlhandler_list, _("conspire: URL Handlers"), "urlhandlers",
+	editlist_gui_open (NULL, NULL, urlhandler_list, _(DISPLAY_NAME ": URL Handlers"), "urlhandlers",
 							 "urlhandlers.conf", url_help);
 }
 
@@ -1178,21 +1178,21 @@ menu_keypopup (void)
 static void
 menu_ulbuttons (void)
 {
-	editlist_gui_open (NULL, NULL, button_list, _("conspire: Userlist buttons"), "buttons",
+	editlist_gui_open (NULL, NULL, button_list, _(DISPLAY_NAME ": Userlist buttons"), "buttons",
 							 "buttons.conf", ulbutton_help);
 }
 
 static void
 menu_dlgbuttons (void)
 {
-	editlist_gui_open (NULL, NULL, dlgbutton_list, _("conspire: Dialog buttons"), "dlgbuttons",
+	editlist_gui_open (NULL, NULL, dlgbutton_list, _(DISPLAY_NAME ": Dialog buttons"), "dlgbuttons",
 							 "dlgbuttons.conf", dlgbutton_help);
 }
 
 static void
 menu_ctcpguiopen (void)
 {
-	editlist_gui_open (NULL, NULL, ctcp_list, _("conspire: CTCP Replies"), "ctcpreply",
+	editlist_gui_open (NULL, NULL, ctcp_list, _(DISPLAY_NAME ": CTCP Replies"), "ctcpreply",
 							 "ctcpreply.conf", ctcp_help);
 }
 
@@ -1274,7 +1274,7 @@ menu_metres_both (GtkWidget *item, gpointer none)
 static struct mymenu mymenu[] = {
 // Change the name on OS X
 #ifndef GDK_WINDOWING_QUARTZ
-	{N_("_Conspire"), 0, 0, M_NEWMENU, 0, 0, 1},
+	{N_("_" DISPLAY_NAME), 0, 0, M_NEWMENU, 0, 0, 1},
 #else
 	{N_("File"), 0, 0, M_NEWMENU, 0, 0, 1},	
 #endif
@@ -1296,7 +1296,7 @@ static struct mymenu mymenu[] = {
 #endif
 	{0, 0, 0, M_SEP, 0, 0, 0},	/* 11 */
 
-	{N_("S_ettings"), 0, 0, M_MENUSUB, 0, 0, 1},
+	{N_("S_ettings"), 0, GTK_STOCK_PREFERENCES, M_MENUSUB, 0, 0, 1},
 		{N_("_Preferences"), menu_settings, GTK_STOCK_PREFERENCES, M_MENUSTOCK, 0, 0, 1},
 		{N_("Auto Replace..."), menu_rpopup, 0, M_MENUITEM, 0, 0, 1},
 #ifdef REGEX_SUBSTITUTION

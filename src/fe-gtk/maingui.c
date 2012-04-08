@@ -2504,10 +2504,10 @@ mg_create_topwindow (session *sess)
 	GtkWidget *table;
 
 	if (sess->type == SESS_DIALOG)
-		win = gtkutil_window_new ("conspire", NULL,
+		win = gtkutil_window_new (DISPLAY_NAME, NULL,
 										  prefs.dialog_width, prefs.dialog_height, 0);
 	else
-		win = gtkutil_window_new ("conspire", NULL,
+		win = gtkutil_window_new (DISPLAY_NAME, NULL,
 										  prefs.mainwindow_width,
 										  prefs.mainwindow_height, 0);
 
@@ -2608,7 +2608,7 @@ mg_create_tabwindow (session *sess)
 	GtkWidget *win;
 	GtkWidget *table;
 
-	win = gtkutil_window_new ("conspire", NULL, prefs.mainwindow_width,
+	win = gtkutil_window_new (DISPLAY_NAME, NULL, prefs.mainwindow_width,
 									  prefs.mainwindow_height, 0);
 
 	sess->gui->window = win;
