@@ -84,6 +84,8 @@ void *xchat_realloc (char *old, int len, char *file, int line);
 #define USERNAMELEN 10
 #define HIDDEN_CHAR	8			/* invisible character for xtext */
 
+#define DISPLAY_NAME "GChat"
+
 #if defined(ENABLE_NLS) && !defined(_)
 #  include <libintl.h>
 #  define _(x) gettext(x)

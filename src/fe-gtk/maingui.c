@@ -303,26 +303,26 @@ fe_set_title (session *sess)
 	switch (type)
 	{
 	case SESS_DIALOG:
-		snprintf (tbuf, sizeof (tbuf), "GChat: PM with %s on %s",
-					sess->channel, server_get_network (sess->server, TRUE));
+		snprintf (tbuf, sizeof (tbuf), "%s: PM with %s on %s",
+					DISPLAY_NAME, sess->channel, server_get_network (sess->server, TRUE));
 		break;
 	case SESS_SERVER:
-		snprintf (tbuf, sizeof (tbuf), "GChat on %s (%s)",
-					 server_get_network (sess->server, TRUE), sess->server->nick);
+		snprintf (tbuf, sizeof (tbuf), "%s on %s (%s)",
+					 DISPLAY_NAME, server_get_network (sess->server, TRUE), sess->server->nick);
 		break;
 	case SESS_CHANNEL:
-		snprintf (tbuf, sizeof (tbuf), "GChat: %s / %s (%s)",
-			 server_get_network (sess->server, TRUE), sess->channel,
+		snprintf (tbuf, sizeof (tbuf), "%s: %s / %s (%s)",
+			 DISPLAY_NAME, server_get_network (sess->server, TRUE), sess->channel,
 			 sess->current_modes ? sess->current_modes : "");
 		break;
 	case SESS_NOTICES:
 	case SESS_SNOTICES:
-		snprintf (tbuf, sizeof (tbuf), "GChat: Notices for %s on %s",
-					 sess->server->nick, server_get_network (sess->server, TRUE));
+		snprintf (tbuf, sizeof (tbuf), "%s: Notices for %s on %s",
+					 DISPLAY_NAME, sess->server->nick, server_get_network (sess->server, TRUE));
 		break;
 	default:
 	def:
-		gtk_window_set_title (GTK_WINDOW (sess->gui->window), "GChat");
+		gtk_window_set_title (GTK_WINDOW (sess->gui->window), DISPLAY_NAME);
 		return;
 	}
 
