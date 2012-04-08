@@ -279,7 +279,15 @@ struct xchatprefs
 	unsigned int gui_input_spell;
 	unsigned int gui_tray;
 	unsigned int gui_tray_flags;
-	unsigned int gui_tweaks;
+	unsigned int gui_tweak_usercount;
+	unsigned int gui_tweak_hidebutton;
+	unsigned int gui_tweak_swappanes;
+	unsigned int gui_tweak_nolines;
+	unsigned int gui_tweak_showkey;
+	unsigned int gui_tweak_smallrows;
+	unsigned int gui_tweak_useprefixes;
+	unsigned int gui_tweak_noattribute;
+    unsigned int gui_tweak_ellipse;
 	unsigned int _gui_ulist_left;
 	unsigned int throttle;
 	unsigned int topicbar;

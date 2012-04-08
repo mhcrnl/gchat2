@@ -102,7 +102,8 @@ cv_tree_init (chanview *cv)
 	GTK_WIDGET_UNSET_FLAGS (view, GTK_CAN_FOCUS);
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (view), FALSE);
 #if GTK_CHECK_VERSION(2,10,0)
-    gtk_tree_view_set_enable_tree_lines (GTK_TREE_VIEW (view), TRUE);
+	if (!prefs.gui_tweak_nolines)
+		gtk_tree_view_set_enable_tree_lines (GTK_TREE_VIEW (view), TRUE);
 #endif
 	gtk_container_add (GTK_CONTAINER (win), view);
 
@@ -113,22 +114,15 @@ cv_tree_init (chanview *cv)
 	/* main column */
 	renderer = gtk_cell_renderer_text_new();
 
-	if (0)
-		g_object_set(G_OBJECT (renderer), "ypad", 0, "visible", FALSE, NULL);
-
+	g_object_set(G_OBJECT (renderer), "ypad", 0, "visible", FALSE, NULL);
 	gtk_tree_view_column_pack_start(col, renderer, FALSE);
-
 	renderer = gtk_cell_renderer_text_new();
 
-	if (0)
+	if (prefs.gui_tweak_ellipse)
 		g_object_set(G_OBJECT (renderer), "ypad", 0, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
 
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
 	gtk_tree_view_column_set_attributes(col, renderer, "text", COL_NAME, "attributes", COL_ATTR, NULL);
-
-
-	/* disable the GTK+ expander because it's shite... --nenolod */
-	/* g_object_set(GTK_TREE_VIEW(view), "show-expanders", FALSE, NULL); */
 
 	g_signal_connect (G_OBJECT (gtk_tree_view_get_selection (GTK_TREE_VIEW (view))),
 							"changed", G_CALLBACK (cv_tree_sel_cb), cv);
