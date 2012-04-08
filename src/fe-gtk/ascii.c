@@ -128,8 +128,8 @@ ascii_open (void)
 	char name[8];
 	GtkWidget *frame, *label, *but, *hbox = NULL, *vbox, *win;
 
-	win = mg_create_generic_tab ("charmap", _("Character Chart"), TRUE, TRUE,
-										  NULL, NULL, 0, 0, &vbox, NULL);
+	win = mg_create_generic_tab ("Character map", _(DISPLAY_NAME ": Character map"), TRUE, TRUE,
+										  NULL, NULL, 0, 0, &vbox, main_sess->server);
 	gtk_container_set_border_width (GTK_CONTAINER (win), 5);
 
 	label = gtk_label_new (NULL);

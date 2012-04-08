@@ -394,7 +394,7 @@ notify_opengui (void)
 
 	notify_window =
 		mg_create_generic_tab ("Notify", _(DISPLAY_NAME ": Notify List"), FALSE, TRUE,
-		                       notify_closegui, NULL, 400, 250, &vbox, 0);
+		                       notify_closegui, NULL, 400, 250, &vbox, main_sess->server);
 
 	view = notify_treeview_new (vbox);
 	g_object_set_data (G_OBJECT (notify_window), "view", view);

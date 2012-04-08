@@ -121,8 +121,7 @@ banlist_do_refresh (struct session *sess)
 
 		gtk_widget_set_sensitive (sess->res->banlist_butRefresh, FALSE);
 
-		snprintf (tbuf, sizeof tbuf, "conspire: Ban List (%s, %s)",
-						sess->channel, sess->server->servername);
+		snprintf (tbuf, sizeof tbuf, "%s: %s / %s ban list", DISPLAY_NAME, sess->server->servername, sess->channel);
 		mg_set_title (sess->res->banlist_window, tbuf);
 
 		store = get_store (sess);
@@ -366,6 +365,7 @@ banlist_opengui (struct session *sess)
 	GtkWidget *vbox1;
 	GtkWidget *bbox;
 	char tbuf[256];
+	char nbuf[256];
 
 	if (sess->res->banlist_window)
 	{
@@ -379,10 +379,10 @@ banlist_opengui (struct session *sess)
 		return;
 	}
 
-	snprintf (tbuf, sizeof tbuf, _("conspire: Ban List (%s)"),
-					sess->server->servername);
+	snprintf (tbuf, sizeof tbuf, _("Bans / %s"), sess->channel);
+	snprintf (nbuf, sizeof nbuf, _("%s: %s / %s ban list"), DISPLAY_NAME, sess->server->servername, sess->channel);
 
-	sess->res->banlist_window = mg_create_generic_tab ("BanList", tbuf, FALSE,
+	sess->res->banlist_window = mg_create_generic_tab (tbuf, nbuf, FALSE,
 					TRUE, banlist_closegui, sess, 550, 200, &vbox1, sess->server);
 
 	/* create banlist view */

@@ -656,8 +656,7 @@ chanlist_opengui (server *serv, int do_refresh)
 		return;
 	}
 
-	snprintf (tbuf, sizeof tbuf, _("%s Channel List"),
-				 server_get_network (serv, TRUE));
+	snprintf (tbuf, sizeof tbuf, _("%s: %s Channel list"), DISPLAY_NAME, server_get_network (serv, TRUE));
 
 	serv->gui->chanlist_pending_rows = NULL;
 	serv->gui->chanlist_tag = 0;
@@ -671,7 +670,7 @@ chanlist_opengui (server *serv, int do_refresh)
 		serv->gui->chanlist_maxusers = 9999;
 
 	serv->gui->chanlist_window =
-		mg_create_generic_tab ("ChanList", tbuf, FALSE, TRUE, chanlist_closegui,
+		mg_create_generic_tab ("Channel list", tbuf, FALSE, TRUE, chanlist_closegui,
 								serv, 640, 480, &vbox, serv);
 
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);

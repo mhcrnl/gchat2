@@ -171,8 +171,8 @@ url_opengui ()
 	}
 
 	urlgrabberwindow =
-		mg_create_generic_tab ("UrlGrabber", _("conspire: URL Grabber"), FALSE,
-							 TRUE, url_closegui, NULL, 400, 256, &vbox, 0);
+		mg_create_generic_tab ("URLs", _(DISPLAY_NAME ": URL Grabber"), FALSE,
+							 TRUE, url_closegui, NULL, 400, 256, &vbox, main_sess->server);
 	view = url_treeview_new (vbox);
 	g_object_set_data (G_OBJECT (urlgrabberwindow), "model",
 	                   gtk_tree_view_get_model (GTK_TREE_VIEW (view)));

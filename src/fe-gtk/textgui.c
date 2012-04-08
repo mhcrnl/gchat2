@@ -299,9 +299,9 @@ pevent_dialog_show ()
 	}
 
 	pevent_dialog =
-			  mg_create_generic_tab ("edit events", _("Edit Events"),
+			  mg_create_generic_tab ("Text events", _(DISPLAY_NAME ": Edit Events"),
 											 TRUE, FALSE, pevent_dialog_close, NULL,
-											 600, 455, &vbox, 0);
+											 600, 455, &vbox, main_sess->server);
 
 	wid = gtk_vpaned_new ();
 	th = gtk_vbox_new (0, 2);

@@ -335,7 +335,7 @@ editlist_gui_open (char *title1, char *title2, GSList * list, char *title, char 
 
 	editlist_gui_window =
 			  mg_create_generic_tab (wmclass, title, TRUE, FALSE,
-											 editlist_gui_close, NULL, 450, 250, &vbox, 0);
+											 editlist_gui_close, NULL, 450, 250, &vbox, main_sess->server);
 
 	editlist_gui_list = gtkutil_clist_new (2, titles, vbox, GTK_POLICY_ALWAYS,
 														editlist_gui_row_selected, 0,

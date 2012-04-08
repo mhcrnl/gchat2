@@ -614,4 +614,6 @@ struct regex_entry
 #define xchat_filename_from_utf8 g_filename_from_utf8
 #define xchat_filename_to_utf8 g_filename_to_utf8
 
+extern session *main_sess;
+
 #endif

@@ -58,6 +58,8 @@ GSList *usermenu_list = 0;
 GSList *urlhandler_list = 0;
 GSList *tabmenu_list = 0;
 
+session *main_sess;
+
 //ConfigDb *config;
 
 /*
@@ -885,7 +887,7 @@ xchat_init (void)
 
 	servlist_init ();							/* load server list */
 
-	sess = new_ircwindow (NULL, _("Event Console"), SESS_SERVER, 0);
+	main_sess = new_ircwindow (NULL, _(DISPLAY_NAME), SESS_SERVER, 0);
 
 	/* turned OFF via -a arg */
 	if (!arg_dont_autoconnect && servlist_have_auto())
