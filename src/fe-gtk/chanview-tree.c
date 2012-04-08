@@ -15,27 +15,6 @@ typedef struct
 #include "fe-gtk.h"
 #include "maingui.h"
 
-static void
-cv_tree_title_cell_data_func (GtkTreeViewColumn *column,
-			      GtkCellRenderer *cell,
-			      GtkTreeModel *model,
-			      GtkTreeIter *iter,
-			      chanview *cv);
-
-static void
-cv_tree_indent_cell_data_func (GtkTreeViewColumn *column,
-			       GtkCellRenderer *cell,
-			       GtkTreeModel *model,
-			       GtkTreeIter *iter,
-			       chanview *cv);
-
-static void
-cv_tree_expander_cell_data_func (GtkTreeViewColumn *column,
-				 GtkCellRenderer *cell,
-				 GtkTreeModel *model,
-				 GtkTreeIter *iter,
-				 chanview *cv);
-
 static void 	/* row-activated, when a row is double clicked */
 cv_tree_activated_cb (GtkTreeView *view, GtkTreePath *path,
 		      GtkTreeViewColumn *column, gpointer data)
@@ -122,6 +101,9 @@ cv_tree_init (chanview *cv)
 		gtk_widget_set_style (view, cv->style);
 	GTK_WIDGET_UNSET_FLAGS (view, GTK_CAN_FOCUS);
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (view), FALSE);
+#if GTK_CHECK_VERSION(2,10,0)
+    gtk_tree_view_set_enable_tree_lines (GTK_TREE_VIEW (view), TRUE);
+#endif
 	gtk_container_add (GTK_CONTAINER (win), view);
 
 	col = main_col = gtk_tree_view_column_new();
@@ -130,24 +112,24 @@ cv_tree_init (chanview *cv)
 
 	/* main column */
 	renderer = gtk_cell_renderer_text_new();
-	g_object_set(G_OBJECT (renderer), "ypad", 0, "visible", FALSE, NULL);
+
+	if (0)
+		g_object_set(G_OBJECT (renderer), "ypad", 0, "visible", FALSE, NULL);
+
 	gtk_tree_view_column_pack_start(col, renderer, FALSE);
-	gtk_tree_view_column_set_cell_data_func(col, renderer, (GtkTreeCellDataFunc) cv_tree_indent_cell_data_func, cv, NULL);
 
 	renderer = gtk_cell_renderer_text_new();
-	g_object_set(G_OBJECT (renderer), "ypad", 0, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+
+	if (0)
+		g_object_set(G_OBJECT (renderer), "ypad", 0, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
 	gtk_tree_view_column_set_attributes(col, renderer, "text", COL_NAME, "attributes", COL_ATTR, NULL);
-	gtk_tree_view_column_set_cell_data_func(col, renderer, (GtkTreeCellDataFunc) cv_tree_title_cell_data_func, cv, NULL);
 
-	/* expander goes at the end of the main column... */
-	renderer = gossip_cell_renderer_expander_new();
-	g_object_set(G_OBJECT (renderer), "ypad", 0, NULL);
-	gtk_tree_view_column_pack_start(col, renderer, FALSE);
-	gtk_tree_view_column_set_cell_data_func(col, renderer, (GtkTreeCellDataFunc) cv_tree_expander_cell_data_func, cv, NULL);
 
 	/* disable the GTK+ expander because it's shite... --nenolod */
-	g_object_set(GTK_TREE_VIEW(view), "show-expanders", FALSE, NULL);
+	/* g_object_set(GTK_TREE_VIEW(view), "show-expanders", FALSE, NULL); */
+
 	g_signal_connect (G_OBJECT (gtk_tree_view_get_selection (GTK_TREE_VIEW (view))),
 							"changed", G_CALLBACK (cv_tree_sel_cb), cv);
 	g_signal_connect (G_OBJECT (view), "button-press-event",
@@ -173,51 +155,6 @@ cv_tree_init (chanview *cv)
 	((treeview *)cv)->idle_tag = 0;
 	((treeview *)cv)->main_col = main_col;
 	gtk_widget_show (view);
-}
-
-static void
-cv_tree_title_cell_data_func (GtkTreeViewColumn *column,
-			      GtkCellRenderer *cell,
-			      GtkTreeModel *model,
-			      GtkTreeIter *iter,
-			      chanview *cv)
-{
-	gint depth = gtk_tree_store_iter_depth(GTK_TREE_STORE(cv->store), iter);
-	g_object_set(cell, "weight", PANGO_WEIGHT_NORMAL, NULL);
-}
-
-static void
-cv_tree_indent_cell_data_func (GtkTreeViewColumn *column,
-	 		       GtkCellRenderer *cell,
-			       GtkTreeModel *model,
-			       GtkTreeIter *iter,
-			       chanview *cv)
-{
-	gint depth = gtk_tree_store_iter_depth(GTK_TREE_STORE(cv->store), iter);
-
-	g_object_set(cell, "text", "   ", "visible", depth >= 1, NULL);
-}
-
-static void
-cv_tree_expander_cell_data_func (GtkTreeViewColumn *column,
-				 GtkCellRenderer *cell,
-				 GtkTreeModel *model,
-				 GtkTreeIter *iter,
-				 chanview *cv)
-{
-	if (gtk_tree_store_iter_depth(GTK_TREE_STORE(cv->store), iter) == 0)
-	{
-		GtkTreePath *path;
-		gboolean row_expanded;
-
-		path = gtk_tree_model_get_path(model, iter);
-		row_expanded = gtk_tree_view_row_expanded(GTK_TREE_VIEW(column->tree_view), path);
-		gtk_tree_path_free(path);
-
-		g_object_set(cell, "visible", TRUE, "expander-style", row_expanded ? GTK_EXPANDER_EXPANDED : GTK_EXPANDER_COLLAPSED, NULL);
-	}
-	else
-		g_object_set(cell, "visible", FALSE, NULL);
 }
 
 static void
