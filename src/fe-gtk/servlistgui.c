@@ -971,7 +971,7 @@ servlist_open_edit (GtkWidget *parent, ircnet *net)
 	char buf2[128 + 8];
 
 	char tbuf[256];
-	snprintf (tbuf, sizeof tbuf, _("conspire: Network Editor (%s)"), net->name);
+	snprintf (tbuf, sizeof tbuf, _(DISPLAY_NAME ": Network Editor (%s)"), net->name);
 	editwindow = mg_create_generic_tab(_("Network Editor"), tbuf, FALSE, TRUE, servlist_closegui, NULL, 550, 200, &vbox5, NULL);
 
 	table3 = gtk_table_new (17, 3, FALSE);
@@ -1201,7 +1201,7 @@ servlist_open_networks (void)
 	GtkCellRenderer *renderer;
 
 	servlist =
-		mg_create_generic_tab(_("Network List"), _("conspire: Networks"),
+		mg_create_generic_tab(_("Network List"), _(DISPLAY_NAME ": Networks"),
 			FALSE, TRUE, servlist_close_cb, NULL, 640, 480, &vbox1, NULL);
 
 	label2 = bold_label (_("User Information"));
