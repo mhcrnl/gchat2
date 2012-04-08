@@ -183,11 +183,7 @@ cv_tree_title_cell_data_func (GtkTreeViewColumn *column,
 			      chanview *cv)
 {
 	gint depth = gtk_tree_store_iter_depth(GTK_TREE_STORE(cv->store), iter);
-
-	if (depth == 0)
-		g_object_set(cell, "weight", PANGO_WEIGHT_BOLD, NULL);
-	else
-		g_object_set(cell, "weight", PANGO_WEIGHT_NORMAL, NULL);
+	g_object_set(cell, "weight", PANGO_WEIGHT_NORMAL, NULL);
 }
 
 static void
