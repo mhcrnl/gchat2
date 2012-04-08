@@ -323,18 +323,12 @@ editlist_gui_open (char *title1, char *title2, GSList * list, char *title, char 
 		titles[1] = _("Command");
 	}
 
-	if (editlist_gui_window)
-	{
-		mg_bring_tofront (editlist_gui_window);
-		return;
-	}
-
 	editlist_list = list;
 	editlist_file = file;
 	editlist_help = help;
 
 	editlist_gui_window =
-			  mg_create_generic_tab (wmclass, title, TRUE, FALSE,
+			  mg_create_generic_tab (wmclass, title, FALSE, TRUE,
 											 editlist_gui_close, NULL, 450, 250, &vbox, main_sess->server);
 
 	editlist_gui_list = gtkutil_clist_new (2, titles, vbox, GTK_POLICY_ALWAYS,

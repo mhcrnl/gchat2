@@ -1130,20 +1130,20 @@ static void
 menu_usercommands (void)
 {
 	editlist_gui_open (NULL, NULL, command_list, _(DISPLAY_NAME ": User Defined Commands"),
-							 "commands", "commands.conf", usercommands_help);
+							 "User commands", "commands.conf", usercommands_help);
 }
 
 static void
 menu_ulpopup (void)
 {
-	editlist_gui_open (NULL, NULL, popup_list, _(DISPLAY_NAME ": Userlist Popup menu"), "popup",
+	editlist_gui_open (NULL, NULL, popup_list, _(DISPLAY_NAME ": Userlist Popup menu"), "User popups",
 							 "popup.conf", ulbutton_help);
 }
 
 static void
 menu_rpopup (void)
 {
-	editlist_gui_open (_("Text"), _("Replace with"), replace_list, _(DISPLAY_NAME ": Replace"), "replace",
+	editlist_gui_open (_("Text"), _("Replace with"), replace_list, _(DISPLAY_NAME ": Replace"), "Auto replace",
 							 "replace.conf", 0);
 }
 
@@ -1151,7 +1151,7 @@ menu_rpopup (void)
 static void
 menu_regex (void)
 {
-	editlist_gui_open (_("Search for"), _("Replace with"), regex_replace_list, _(DISPLAY_NAME ": Regex Replace"), "regex_replace",
+	editlist_gui_open (_("Search for"), _("Replace with"), regex_replace_list, _(DISPLAY_NAME ": Regex replace"), "Regex replace",
 			"regex_replace.conf", 0);
 }
 #endif
@@ -1159,7 +1159,7 @@ menu_regex (void)
 static void
 menu_urlhandlers (void)
 {
-	editlist_gui_open (NULL, NULL, urlhandler_list, _(DISPLAY_NAME ": URL Handlers"), "urlhandlers",
+	editlist_gui_open (NULL, NULL, urlhandler_list, _(DISPLAY_NAME ": URL Handlers"), "URL handlers",
 							 "urlhandlers.conf", url_help);
 }
 
@@ -1178,21 +1178,21 @@ menu_keypopup (void)
 static void
 menu_ulbuttons (void)
 {
-	editlist_gui_open (NULL, NULL, button_list, _(DISPLAY_NAME ": Userlist buttons"), "buttons",
+	editlist_gui_open (NULL, NULL, button_list, _(DISPLAY_NAME ": Userlist buttons"), "Userlist buttons",
 							 "buttons.conf", ulbutton_help);
 }
 
 static void
 menu_dlgbuttons (void)
 {
-	editlist_gui_open (NULL, NULL, dlgbutton_list, _(DISPLAY_NAME ": Dialog buttons"), "dlgbuttons",
+	editlist_gui_open (NULL, NULL, dlgbutton_list, _(DISPLAY_NAME ": Dialog buttons"), "Dialog buttons",
 							 "dlgbuttons.conf", dlgbutton_help);
 }
 
 static void
 menu_ctcpguiopen (void)
 {
-	editlist_gui_open (NULL, NULL, ctcp_list, _(DISPLAY_NAME ": CTCP Replies"), "ctcpreply",
+	editlist_gui_open (NULL, NULL, ctcp_list, _(DISPLAY_NAME ": CTCP Replies"), "CTCP replies",
 							 "ctcpreply.conf", ctcp_help);
 }
 
