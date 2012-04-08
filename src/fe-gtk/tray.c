@@ -38,10 +38,10 @@ typedef GdkPixbuf* TrayIcon;
 #define tray_icon_from_file(f) gdk_pixbuf_new_from_file(f,NULL)
 #define tray_icon_free(i) g_object_unref(i)
 
-#define ICON_NORMAL pix_conspire
-#define ICON_MSG pix_tray_blank
-#define ICON_HILIGHT pix_tray_blank
-#define ICON_FILE pix_tray_file
+#define ICON_NORMAL pix_32
+#define ICON_MSG pix_hilite
+#define ICON_HILIGHT pix_hilite
+#define ICON_FILE pix_hilite
 #define TIMEOUT 500
 
 static GtkStatusIcon *sticon;

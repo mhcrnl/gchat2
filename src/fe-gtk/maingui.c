@@ -1286,31 +1286,14 @@ mg_tab_contextmenu_cb (chanview *cv, chan *ch, int tag, gpointer ud, GdkEventBut
 static void
 mg_add_chan (session *sess)
 {
-	GdkPixbuf *icon;
 	char *name = _("<none>");
 
 	if (sess->channel[0])
 		name = sess->channel;
 
-	switch (sess->type)
-	{
-	case SESS_CHANNEL:
-#if 0
-		icon = get_user_icon(sess->server, sess->user);
-#else
-		icon = pix_channel;
-#endif
-		break;
-	case SESS_SERVER:
-		icon = pix_server;
-		break;
-	default:
-		icon = pix_dialog;
-	}
-
 	sess->res->tab = chanview_add (sess->gui->chanview, name, sess->server, sess,
 											 sess->type == SESS_SERVER ? FALSE : TRUE,
-											 TAG_IRC, icon);
+											 TAG_IRC);
 	if (plain_list == NULL)
 		mg_create_tab_colors ();
 
@@ -2646,7 +2629,7 @@ mg_create_tabwindow (session *sess)
 	g_signal_connect (G_OBJECT (win), "window_state_event",
 							G_CALLBACK (mg_windowstate_cb), NULL);
 
-	gtk_window_set_icon(GTK_WINDOW(win), pix_conspire);
+	gtk_window_set_icon(GTK_WINDOW(win), pix_48);
 
 	palette_alloc (win);
 
@@ -2724,7 +2707,7 @@ mg_add_generic_tab (char *name, char *title, void *family, GtkWidget *box)
 	gtk_notebook_append_page (GTK_NOTEBOOK (mg_gui->note_book), box, NULL);
 	gtk_widget_show (box);
 
-	ch = chanview_add (mg_gui->chanview, name, family, box, TRUE, TAG_UTIL, pix_util);
+	ch = chanview_add (mg_gui->chanview, name, family, box, TRUE, TAG_UTIL);
 	chan_set_color (ch, plain_list);
 	/* FIXME: memory leak */
 	g_object_set_data (G_OBJECT (box), "title", strdup (title));

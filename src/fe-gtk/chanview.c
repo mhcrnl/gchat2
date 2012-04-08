@@ -13,8 +13,7 @@
 enum {
 	COL_NAME,
 	COL_CHAN,
-	COL_ATTR,
-	COL_PIXBUF
+	COL_ATTR
 };
 
 struct _chanview
@@ -63,7 +62,6 @@ struct _chan
 	void *userdata;	/* session * */
 	void *family;		/* server * or null */
 	void *impl;	/* togglebutton or null */
-	GdkPixbuf *icon;
 	short allow_closure;	/* allow it to be closed when it still has children? */
 	short tag;
 };
@@ -227,8 +225,7 @@ chanview_new (int type, int trunc_len, gboolean sort,
 	chanview *cv;
 
 	cv = calloc (1, sizeof (chanview));
-	cv->store = gtk_tree_store_new (4, G_TYPE_STRING, G_TYPE_POINTER,
-											  PANGO_TYPE_ATTR_LIST, GDK_TYPE_PIXBUF);
+	cv->store = gtk_tree_store_new (3, G_TYPE_STRING, G_TYPE_POINTER, PANGO_TYPE_ATTR_LIST);
 	cv->style = style;
 	cv->box = gtk_hbox_new (0, 0);
 	cv->trunc_len = trunc_len;
@@ -308,8 +305,7 @@ chanview_find_parent (chanview *cv, void *family, GtkTreeIter *search_iter, chan
 
 static chan *
 chanview_add_real (chanview *cv, char *name, void *family, void *userdata,
-						 gboolean allow_closure, int tag, GdkPixbuf *icon,
-						 chan *ch, chan *avoid)
+						 gboolean allow_closure, int tag, chan *ch, chan *avoid)
 {
 	GtkTreeIter parent_iter;
 	GtkTreeIter iter;
@@ -332,12 +328,10 @@ chanview_add_real (chanview *cv, char *name, void *family, void *userdata,
 		ch->cv = cv;
 		ch->allow_closure = allow_closure;
 		ch->tag = tag;
-		ch->icon = icon;
 	}
 	memcpy (&(ch->iter), &iter, sizeof (iter));
 
-	gtk_tree_store_set (cv->store, &iter, COL_NAME, name, COL_CHAN, ch,
-							  COL_PIXBUF, icon, -1);
+	gtk_tree_store_set (cv->store, &iter, COL_NAME, name, COL_CHAN, ch, -1);
 
 	cv->size++;
 	if (!has_parent)
@@ -349,14 +343,14 @@ chanview_add_real (chanview *cv, char *name, void *family, void *userdata,
 }
 
 chan *
-chanview_add (chanview *cv, char *name, void *family, void *userdata, gboolean allow_closure, int tag, GdkPixbuf *icon)
+chanview_add (chanview *cv, char *name, void *family, void *userdata, gboolean allow_closure, int tag)
 {
 	char *new_name;
 	chan *ret;
 
 	new_name = truncate_tab_name (name, cv->trunc_len);
 
-	ret = chanview_add_real (cv, new_name, family, userdata, allow_closure, tag, icon, NULL, NULL);
+	ret = chanview_add_real (cv, new_name, family, userdata, allow_closure, tag, NULL, NULL);
 
 	if (new_name != name)
 		free (new_name);
@@ -545,7 +539,7 @@ chan_emancipate_children (chan *ch)
 		ch->cv->func_remove (childch);
 		gtk_tree_store_remove (ch->cv->store, &childiter);
 		ch->cv->size--;
-		chanview_add_real (childch->cv, name, childch->family, childch->userdata, childch->allow_closure, childch->tag, childch->icon, childch, ch);
+		chanview_add_real (childch->cv, name, childch->family, childch->userdata, childch->allow_closure, childch->tag, childch, ch);
 		if (attr)
 		{
 			childch->cv->func_set_color (childch, attr);

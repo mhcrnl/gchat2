@@ -23,13 +23,6 @@ cv_tree_title_cell_data_func (GtkTreeViewColumn *column,
 			      chanview *cv);
 
 static void
-cv_tree_icon_cell_data_func (GtkTreeViewColumn *column,
-			      GtkCellRenderer *cell,
-			      GtkTreeModel *model,
-			      GtkTreeIter *iter,
-			      chanview *cv);
-
-static void
 cv_tree_indent_cell_data_func (GtkTreeViewColumn *column,
 			       GtkCellRenderer *cell,
 			       GtkTreeModel *model,
@@ -141,13 +134,6 @@ cv_tree_init (chanview *cv)
 	gtk_tree_view_column_pack_start(col, renderer, FALSE);
 	gtk_tree_view_column_set_cell_data_func(col, renderer, (GtkTreeCellDataFunc) cv_tree_indent_cell_data_func, cv, NULL);
 
-	/* icon column */
-	renderer = gtk_cell_renderer_pixbuf_new();
-	g_object_set(G_OBJECT (renderer), "ypad", 0, NULL);
-	gtk_tree_view_column_pack_start(col, renderer, FALSE);
-	gtk_tree_view_column_set_cell_data_func(col, renderer, (GtkTreeCellDataFunc) cv_tree_icon_cell_data_func, cv, NULL);
-	gtk_tree_view_column_set_attributes(col, renderer, "pixbuf", COL_PIXBUF, NULL);
-
 	renderer = gtk_cell_renderer_text_new();
 	g_object_set(G_OBJECT (renderer), "ypad", 0, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
@@ -162,7 +148,6 @@ cv_tree_init (chanview *cv)
 
 	/* disable the GTK+ expander because it's shite... --nenolod */
 	g_object_set(GTK_TREE_VIEW(view), "show-expanders", FALSE, NULL);
-
 	g_signal_connect (G_OBJECT (gtk_tree_view_get_selection (GTK_TREE_VIEW (view))),
 							"changed", G_CALLBACK (cv_tree_sel_cb), cv);
 	g_signal_connect (G_OBJECT (view), "button-press-event",
@@ -203,16 +188,6 @@ cv_tree_title_cell_data_func (GtkTreeViewColumn *column,
 		g_object_set(cell, "weight", PANGO_WEIGHT_BOLD, NULL);
 	else
 		g_object_set(cell, "weight", PANGO_WEIGHT_NORMAL, NULL);
-}
-
-static void
-cv_tree_icon_cell_data_func (GtkTreeViewColumn *column,
-			      GtkCellRenderer *cell,
-			      GtkTreeModel *model,
-			      GtkTreeIter *iter,
-			      chanview *cv)
-{
-	g_object_set(cell, "visible", TRUE, NULL);
 }
 
 static void

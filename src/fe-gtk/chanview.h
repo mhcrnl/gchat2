@@ -11,7 +11,7 @@ void chanview_set_callbacks (chanview *cv,
 	gboolean (*cb_contextmenu) (chanview *, chan *, int tag, void *userdata, GdkEventButton *),
 	int (*cb_compare) (void *a, void *b));
 void chanview_set_impl (chanview *cv, int type);
-chan *chanview_add (chanview *cv, char *name, void *family, void *userdata, gboolean allow_closure, int tag, GdkPixbuf *icon);
+chan *chanview_add (chanview *cv, char *name, void *family, void *userdata, gboolean allow_closure, int tag);
 int chanview_get_size (chanview *cv);
 GtkWidget *chanview_get_box (chanview *cv);
 void chanview_move_focus (chanview *cv, gboolean relative, int num);

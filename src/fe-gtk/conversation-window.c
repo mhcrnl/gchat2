@@ -55,7 +55,6 @@ conversation_window_new(void)
 {
 	ConversationWindowPriv *priv_win = g_slice_new0(ConversationWindowPriv);
 	ConversationWindow *win = (ConversationWindow *) priv_win;
-
 	win->widget = gtk_hbox_new(FALSE, 2);
 
 	priv_win->xtext = gtk_xtext_new(colors, 0);
@@ -65,7 +64,6 @@ conversation_window_new(void)
 	gtk_box_pack_start(GTK_BOX(win->widget), priv_win->vs, FALSE, FALSE, 0);
 
 	gtk_widget_show_all(win->widget);
-
 	return win;
 }
 
@@ -98,6 +96,7 @@ conversation_window_update_preferences(ConversationWindow *win)
 void
 conversation_window_set_urlcheck_function(ConversationWindow *win, int (*urlcheck_function) (GtkWidget *, char *, int))
 {
+
 	ConversationWindowPriv *priv_win = (ConversationWindowPriv *) win;
 	
 	g_return_if_fail(win != NULL);

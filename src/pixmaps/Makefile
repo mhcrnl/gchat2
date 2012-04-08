@@ -1,16 +1,14 @@
 DATA = 	book.png		\
-	balloon.png 		\
-	conspire.png		\
-	fileoffer.png		\
-	hop.png			\
-	op.png			\
-	purple.png		\
-	red.png			\
-	voice.png		\
-	channel.png		\
-	server.png		\
-	util.png		\
-	dialog.png
+	status/hop.png		\
+	status/op.png		\
+	status/purple.png	\
+	status/red.png		\
+	status/voice.png	\
+    highlight.png		\
+    128.png				\
+    48.png				\
+    32.png				\
+    16.png				\
 
 include ../../buildsys.mk
 

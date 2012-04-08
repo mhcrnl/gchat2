@@ -30,8 +30,11 @@
 #include <gdk-pixbuf/gdk-pixdata.h>
 #include <gtk/gtk.h>
 
-GdkPixbuf *pix_conspire;
+GdkPixbuf *pix_128;
+GdkPixbuf *pix_48;
+GdkPixbuf *pix_32;
 GdkPixbuf *pix_book;
+GdkPixbuf *pix_hilite;
 
 GdkPixbuf *pix_purple;
 GdkPixbuf *pix_red;
@@ -41,12 +44,6 @@ GdkPixbuf *pix_voice;
 
 GdkPixbuf *pix_tray_blank;
 GdkPixbuf *pix_tray_file;
-
-GdkPixbuf *pix_channel;
-GdkPixbuf *pix_dialog;
-GdkPixbuf *pix_server;
-GdkPixbuf *pix_util;
-
 
 static GdkPixmap *
 pixmap_load_from_file_real (char *file)
@@ -88,19 +85,14 @@ void
 pixmaps_init (void)
 {
 	pix_book = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/book.png", NULL);
-	pix_conspire = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/conspire.png", NULL);
+    pix_hilite = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/32.png", NULL);
+	pix_128 = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/128.png", NULL);
+	pix_48 = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/48.png", NULL);
+	pix_32 = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/32.png", NULL);
 
-	pix_hop = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/hop.png", NULL);
-	pix_purple = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/purple.png", NULL);
-	pix_red = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/red.png", NULL);
-	pix_op = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/op.png", NULL);
-	pix_voice = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/voice.png", NULL);
-
-	pix_tray_blank = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/balloon.png", NULL);
-	pix_tray_file = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/fileoffer.png", NULL);
-
-	pix_channel = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/channel.png", NULL);
-	pix_dialog = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/dialog.png", NULL);
-	pix_server = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/server.png", NULL);
-	pix_util = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/util.png", NULL);
+	pix_hop = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/status/hop.png", NULL);
+	pix_op = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/status/op.png", NULL);
+	pix_purple = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/status/purple.png", NULL);
+	pix_red = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/status/red.png", NULL);
+	pix_voice = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/status/voice.png", NULL);
 }

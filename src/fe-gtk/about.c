@@ -65,7 +65,7 @@ menu_about (GtkWidget * wid, gpointer sess)
 	GdkPixbuf *about_pix;
 	extern GtkWindow *parent_window;      /* maingui.c */
 
-	about_pix = gdk_pixbuf_scale_simple(pix_conspire, 128, 128, GDK_INTERP_BILINEAR);
+	about_pix = gdk_pixbuf_scale_simple(pix_128, 128, 128, GDK_INTERP_BILINEAR);
 
 	gtk_show_about_dialog(parent_window,
 #if GTK_CHECK_VERSION (2, 11, 0)
