@@ -27,7 +27,7 @@ gchat-bot
 gchat-text
 xchat
 xchat-text
-tools/make-te
+make-te
 src/common/conspire-config.h.in
 src/common/conspire-config.h
 src/common/gchat-config.h.in

@@ -85,7 +85,7 @@ void
 pixmaps_init (void)
 {
 	pix_book = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/book.png", NULL);
-    pix_hilite = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/32.png", NULL);
+    pix_hilite = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/highlight.png", NULL);
 	pix_128 = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/128.png", NULL);
 	pix_48 = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/48.png", NULL);
 	pix_32 = gdk_pixbuf_new_from_file (CONSPIRE_SHAREDIR "/conspire/pixmaps/32.png", NULL);
