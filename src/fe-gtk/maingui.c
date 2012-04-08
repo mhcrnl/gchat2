@@ -312,7 +312,7 @@ fe_set_title (session *sess)
 		break;
 	case SESS_CHANNEL:
 		snprintf (tbuf, sizeof (tbuf), "GChat: %s / %s (%s)",
-			 sess->channel, server_get_network (sess->server, TRUE),
+			 server_get_network (sess->server, TRUE), sess->channel
 			 sess->current_modes ? sess->current_modes : "");
 		break;
 	case SESS_NOTICES:
