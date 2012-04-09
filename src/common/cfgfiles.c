@@ -782,7 +782,7 @@ load_config (void)
 	prefs.irc_no_hilight = strdup("NickServ,ChanServ");
 	prefs.irc_time_format = strdup("%a %b %e %T %Z %Y");
 
-	prefs.gui_ulist_pos = 2;
+	prefs.gui_ulist_pos = 3;
 	prefs.tab_pos = 1;
 
 	prefs.hilight_enable = TRUE;
