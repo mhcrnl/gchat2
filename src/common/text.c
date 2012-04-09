@@ -28,7 +28,9 @@
 #include <sys/mman.h>
 
 #include "xchat.h"
+#if 0
 #include <glib/ghash.h>
+#endif
 #include "cfgfiles.h"
 #include "fe.h"
 #include "server.h"

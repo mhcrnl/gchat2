@@ -21,7 +21,9 @@
  */
 
 #include "conspire-config.h"
+#if 0
 #include <glib/gi18n.h>
+#endif
 #include <glib.h>
 #include <dlfcn.h>
 #include <string.h>
