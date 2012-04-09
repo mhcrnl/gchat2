@@ -1,4 +1,8 @@
-/* X-Chat
+/*
+ * GChat
+ * Copyright (C) 2012 Arinity Development Group
+ *
+ * X-Chat
  * Copyright (C) 2004-2007 Peter Zelezny.
  */
 
@@ -33,7 +37,7 @@ GtkStyle *create_input_style (GtkStyle *);
 
 #define LABEL_INDENT 12
 
-static int last_selected_page = 0;
+static void setup_close_cb (GtkWidget * win);
 static gboolean color_change;
 
 enum
@@ -690,75 +694,6 @@ setup_create_radio (GtkWidget *table, int row, const setting *set)
 	return i;
 }
 
-/*
-static const char *id_strings[] =
-{
-	"",
-	"*",
-	"%C4*%C18%B%B",
-	"%U"
-};
-
-static void
-setup_id_menu_cb (GtkWidget *item, char *dest)
-{
-	int n = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (item), "n"));
-
-	strcpy (dest, id_strings[n]);
-}
-
-static void
-setup_create_id_menu (GtkWidget *table, char *label, int row, char *dest)
-{
-	GtkWidget *wid, *menu, *item;
-	int i, def = 0;
-	static const char *text[] =
-	{
-		("(disabled)"),
-		("A star (*)"),
-		("A red star (*)"),
-		("Underlined")
-	};
-
-	wid = gtk_label_new (label);
-	gtk_misc_set_alignment (GTK_MISC (wid), 0.0, 0.5);
-	gtk_table_attach (GTK_TABLE (table), wid, 2, 3, row, row + 1,
-							GTK_SHRINK | GTK_FILL, GTK_SHRINK | GTK_FILL, LABEL_INDENT, 0);
-
-	wid = gtk_option_menu_new ();
-	menu = gtk_menu_new ();
-
-	for (i = 0; i < 4; i++)
-	{
-		if (strcmp (id_strings[i], dest) == 0)
-		{
-			def = i;
-			break;
-		}
-	}
-
-	i = 0;
-	while (text[i])
-	{
-		item = gtk_menu_item_new_with_label (_(text[i]));
-		g_object_set_data (G_OBJECT (item), "n", GINT_TO_POINTER (i));
-
-		gtk_widget_show (item);
-		gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-		g_signal_connect (G_OBJECT (item), "activate",
-								G_CALLBACK (setup_id_menu_cb), dest);
-		i++;
-	}
-
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (wid), menu);
-	gtk_option_menu_set_history (GTK_OPTION_MENU (wid), def);
-
-	gtk_table_attach (GTK_TABLE (table), wid, 3, 4, row, row + 1,
-							GTK_SHRINK | GTK_FILL, GTK_SHRINK | GTK_FILL, 0, 0);
-}
-
-*/
-
 static void
 setup_create_menu (GtkWidget *table, int row, const setting *set)
 {
@@ -1225,34 +1160,13 @@ setup_create_color_page (void)
 }
 
 static void
-setup_add_page (const char *title, GtkWidget *book, GtkWidget *tab)
+setup_add_page (const char *title, session *sess, GtkWidget *tab)
 {
-	GtkWidget *oframe, *frame, *label, *vvbox;
-	char buf[128];
-
-	/* frame for whole page */
-	oframe = gtk_frame_new (NULL);
-	gtk_frame_set_shadow_type (GTK_FRAME (oframe), GTK_SHADOW_IN);
-
-	vvbox = gtk_vbox_new (FALSE, 0);
-	gtk_container_add (GTK_CONTAINER (oframe), vvbox);
-
-	/* border for the label */
-	frame = gtk_frame_new (NULL);
-	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_OUT);
-	gtk_box_pack_start (GTK_BOX (vvbox), frame, FALSE, TRUE, 0);
-
-	/* label */
-	label = gtk_label_new (NULL);
-	snprintf (buf, sizeof (buf), "<b><big>%s</big></b>", _(title));
-	gtk_label_set_markup (GTK_LABEL (label), buf);
-	gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-	gtk_misc_set_padding (GTK_MISC (label), 2, 1);
-	gtk_container_add (GTK_CONTAINER (frame), label);
-
-	gtk_container_add (GTK_CONTAINER (vvbox), tab);
-
-	gtk_notebook_append_page (GTK_NOTEBOOK (book), oframe, NULL);
+	char buf[64];
+	snprintf (buf, sizeof (buf), "%s: %s: %s", DISPLAY_NAME, _("Preferences"), (char *)title);
+    mg_add_generic_tab ((char *)title, buf, sess->server, tab);
+	g_signal_connect (G_OBJECT (tab), "destroy", G_CALLBACK (setup_close_cb), NULL);
+    gtk_widget_show_all (tab);
 }
 
 static const char *const cata[] =
@@ -1277,122 +1191,20 @@ static const char *const cata[] =
 	NULL
 };
 
-static GtkWidget *
-setup_create_pages (GtkWidget *box)
-{
-	GtkWidget *book;
-
-	book = gtk_notebook_new ();
-
-	setup_add_page (cata[1], book, setup_create_page (textbox_settings));
-	setup_add_page (cata[2], book, setup_create_page (inputbox_settings));
-	setup_add_page (cata[3], book, setup_create_page (userlist_settings));
-	setup_add_page (cata[4], book, setup_create_page (tabs_settings));
-	setup_add_page (cata[5], book, setup_create_color_page ());
-	setup_add_page (cata[8], book, setup_create_page (alert_settings));
-	setup_add_page (cata[9], book, setup_create_page (general_settings));
-	setup_add_page (cata[10], book, setup_create_page (logging_settings));
-	setup_add_page (cata[11], book, setup_create_page(advanced_settings));
-	setup_add_page (cata[14], book, setup_create_page (network_settings));
-	setup_add_page (cata[15], book, setup_create_page (filexfer_settings));
-
-	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (book), FALSE);
-	gtk_notebook_set_show_border (GTK_NOTEBOOK (book), FALSE);
-	gtk_container_add (GTK_CONTAINER (box), book);
-
-	return book;
-}
-
 static void
-setup_tree_cb (GtkTreeView *treeview, GtkWidget *book)
+setup_create_pages (session *sess)
 {
-	GtkTreeSelection *selection = gtk_tree_view_get_selection (treeview);
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	int page;
-
-	if (gtk_tree_selection_get_selected (selection, &model, &iter))
-	{
-		gtk_tree_model_get (model, &iter, 1, &page, -1);
-		if (page != -1)
-		{
-			gtk_notebook_set_current_page (GTK_NOTEBOOK (book), page);
-			last_selected_page = page;
-		}
-	}
-}
-
-static gboolean
-setup_tree_select_filter (GtkTreeSelection *selection, GtkTreeModel *model,
-								  GtkTreePath *path, gboolean path_selected,
-								  gpointer data)
-{
-	if (gtk_tree_path_get_depth (path) > 1)
-		return TRUE;
-	return FALSE;
-}
-
-static void
-setup_create_tree (GtkWidget *box, GtkWidget *book)
-{
-	GtkWidget *tree;
-	GtkWidget *frame;
-	GtkTreeStore *model;
-	GtkTreeIter iter;
-	GtkTreeIter child_iter;
-	GtkTreeIter *sel_iter = NULL;
-	GtkCellRenderer *renderer;
-	GtkTreeSelection *sel;
-	int i, page;
-
-	model = gtk_tree_store_new (2, G_TYPE_STRING, G_TYPE_INT);
-
-	i = 0;
-	page = 0;
-	do
-	{
-		gtk_tree_store_append (model, &iter, NULL);
-		gtk_tree_store_set (model, &iter, 0, _(cata[i]), 1, -1, -1);
-		i++;
-
-		do
-		{
-			gtk_tree_store_append (model, &child_iter, &iter);
-			gtk_tree_store_set (model, &child_iter, 0, _(cata[i]), 1, page, -1);
-			if (page == last_selected_page)
-				sel_iter = gtk_tree_iter_copy (&child_iter);
-			page++;
-			i++;
-		} while (cata[i]);
-
-		i++;
-
-	} while (cata[i]);
-
-	tree = gtk_tree_view_new_with_model (GTK_TREE_MODEL (model));
-	g_object_unref (G_OBJECT (model));
-	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (tree));
-	gtk_tree_selection_set_mode (sel, GTK_SELECTION_BROWSE);
-	gtk_tree_selection_set_select_function (sel, setup_tree_select_filter,
-														 NULL, NULL);
-	g_signal_connect (G_OBJECT (tree), "cursor_changed",
-							G_CALLBACK (setup_tree_cb), book);
-
-	renderer = gtk_cell_renderer_text_new ();
-	gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree),
-							    -1, _("Categories"), renderer, "text", 0, NULL);
-	gtk_tree_view_expand_all (GTK_TREE_VIEW (tree));
-
-	frame = gtk_frame_new (NULL);
-	gtk_container_add (GTK_CONTAINER (frame), tree);
-	gtk_box_pack_start (GTK_BOX (box), frame, 0, 0, 0);
-	/*gtk_box_reorder_child (GTK_BOX (box), frame, 0);*/
-
-	if (sel_iter)
-	{
-		gtk_tree_selection_select_iter (sel, sel_iter);
-		gtk_tree_iter_free (sel_iter);
-	}
+	setup_add_page (cata[1], sess, setup_create_page (textbox_settings));
+	setup_add_page (cata[2], sess, setup_create_page (inputbox_settings));
+	setup_add_page (cata[3], sess, setup_create_page (userlist_settings));
+	setup_add_page (cata[4], sess, setup_create_page (tabs_settings));
+	setup_add_page (cata[5], sess, setup_create_color_page ());
+	setup_add_page (cata[8], sess, setup_create_page (alert_settings));
+	setup_add_page (cata[9], sess, setup_create_page (general_settings));
+	setup_add_page (cata[10], sess, setup_create_page (logging_settings));
+	setup_add_page (cata[11], sess, setup_create_page(advanced_settings));
+	setup_add_page (cata[14], sess, setup_create_page (network_settings));
+	setup_add_page (cata[15], sess, setup_create_page (filexfer_settings));
 }
 
 static void
@@ -1569,7 +1381,7 @@ setup_apply (struct xchatprefs *pr)
 }
 
 static void
-setup_ok_cb (GtkWidget *but, GtkWidget *win)
+setup_close_cb (GtkWidget * win)
 {
 	gtk_widget_destroy (win);
 	setup_apply (&prefs);
@@ -1577,59 +1389,16 @@ setup_ok_cb (GtkWidget *but, GtkWidget *win)
 	palette_save ();
 }
 
-static GtkWidget *
+static void
 setup_window_open (void)
 {
-	GtkWidget *win, *vbox, *hbox, *scrolledwindow;
-
-	win = mg_create_generic_tab(_("Preferences"), _("Preferences"), FALSE, TRUE, setup_ok_cb, NULL, 0, 0, &vbox, main_sess->server);
-
-	scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
-	gtk_widget_show (scrolledwindow);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow),
-											  GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow),
-													 GTK_SHADOW_IN);
-
-	gtk_container_add (GTK_CONTAINER (win), scrolledwindow);
-
-	vbox = gtk_vbox_new (FALSE, 5);
-	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW (scrolledwindow), vbox);
-
-	hbox = gtk_hbox_new (FALSE, 4);
-	gtk_container_add (GTK_CONTAINER (vbox), hbox);
-
-	setup_create_tree (hbox, setup_create_pages (hbox));
-
-	hbox = gtk_hbox_new (FALSE, 0);
-	gtk_box_pack_end (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
-
-	gtk_widget_show_all (win);
-
-	return win;
-}
-
-static void
-setup_close_cb (GtkWidget *win, GtkWidget **swin)
-{
-	*swin = NULL;
+	session *sess;
+	sess = new_ircwindow_fake (NULL, _("Preferences"), SESS_SERVER, 0);
+	setup_create_pages (sess);
 }
 
 void
 setup_open (void)
 {
-	static GtkWidget *setup_window = NULL;
-
-	if (setup_window)
-	{
-		fe_message (_("Preferences editor is already open."), FE_MSG_ERROR);
-		return;
-	}
-
-
-	color_change = FALSE;
-	setup_window = setup_window_open ();
-
-	g_signal_connect (G_OBJECT (setup_window), "destroy",
-							G_CALLBACK (setup_close_cb), &setup_window);
+	setup_window_open ();
 }

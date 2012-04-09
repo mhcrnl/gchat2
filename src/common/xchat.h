@@ -383,6 +383,7 @@ typedef struct session
 	int lastact_idx;                /* the sess_list_by_lastact[] index of the list we're in.
 					 * For valid values, see defines of LACT_*. */
 
+    int fake_server;		/* a server session that isn't an actual IRC server */
 	int new_data:1;			/* new data avail? (purple tab) */
 	int nick_said:1;		/* your nick mentioned? (blue tab) */
 	int msg_said:1;			/* new msg available? (red tab) */

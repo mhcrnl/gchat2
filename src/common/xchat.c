@@ -329,6 +329,14 @@ session_new (server *serv, char *from, int type, int focus)
 }
 
 session *
+new_ircwindow_fake (server *serv, char *name, int type, int focus)
+{
+	session *sess = new_ircwindow (serv, name, type, focus);
+	sess->fake_server = 1;
+	return sess;
+}
+
+session *
 new_ircwindow (server *serv, char *name, int type, int focus)
 {
 	session *sess;
@@ -742,7 +750,6 @@ xchat_init (void)
 {
 	char buf[3068];
 	const char *cs = NULL;
-	session *sess;
 
 #ifdef USE_SIGACTION
 	struct sigaction act;
@@ -887,7 +894,7 @@ xchat_init (void)
 
 	servlist_init ();							/* load server list */
 
-	main_sess = new_ircwindow (NULL, _(DISPLAY_NAME), SESS_SERVER, 0);
+	main_sess = new_ircwindow_fake (NULL, _(DISPLAY_NAME), SESS_SERVER, 0);
 
 	/* turned OFF via -a arg */
 	if (!arg_dont_autoconnect && servlist_have_auto())

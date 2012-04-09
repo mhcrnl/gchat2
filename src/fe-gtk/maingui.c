@@ -439,6 +439,12 @@ mg_focus (session *sess)
 		if (sess->res->tab)
 			fe_set_tab_color (sess, 0);
 	}
+
+	/* fake server tab */
+	if (sess->fake_server)
+		gtk_widget_hide (sess->gui->input_box);
+	else
+		gtk_widget_show (sess->gui->input_box);
 }
 
 /* switching tabs away from this one, so remember some info about it! */
@@ -881,8 +887,7 @@ mg_tab_close_cb (GtkWidget *dialog, gint arg1, session *sess)
 		for (list = sess_list; list;)
 		{
 			next = list->next;
-			if (((session *)list->data)->server == sess->server &&
-				 ((session *)list->data) != sess)
+			if (((session *)list->data)->server == sess->server && ((session *)list->data) != sess)
 				fe_close_window ((session *)list->data);
 			list = next;
 		}
@@ -1227,7 +1232,7 @@ mg_tab_contextmenu_cb (chanview *cv, chan *ch, int tag, gpointer ud, GdkEventBut
 
 	menu = gtk_menu_new ();
 
-	if (tag == TAG_IRC)
+	if (tag == TAG_IRC && !sess->fake_server)
 	{
 		if (sess->type == SESS_SERVER)
 		{
@@ -1421,7 +1426,7 @@ mg_changui_destroy (session *sess)
 		/*gtk_widget_destroy (sess->gui->window);*/
 		/* don't destroy until the new one is created. Not sure why, but */
 		/* it fixes: Gdk-CRITICAL **: gdk_colormap_get_screen: */
-		/*           assertion `GDK_IS_COLORMAP (cmap)' failed */
+		/*		   assertion `GDK_IS_COLORMAP (cmap)' failed */
 		ret = sess->gui->window;
 		free (sess->gui);
 		sess->gui = NULL;
@@ -2699,7 +2704,7 @@ mg_apply_setup (void)
 	}
 }
 
-static chan *
+chan *
 mg_add_generic_tab (char *name, char *title, void *family, GtkWidget *box)
 {
 	chan *ch;
