@@ -34,17 +34,19 @@ process_message(gpointer *params)
 	gchar *idtext   = params[4];
 	gint nickcolor  = color_of(from);
 	gint chancolor  = color_of(sess->channel);
-	gchar *temp = g_strdup_printf("\x03%d%s\x03 \2(\2\x03%d%s\x03\2)\2", nickcolor, from, chancolor, sess->channel);
+	gchar *tempc = g_strdup_printf("\x03%d%s\x03 \2(\2\x03%d%s\x03\2)\2", nickcolor, from, chancolor, sess->channel);
+	gchar *tempn = g_strdup_printf("%s \2(\2%s\2)\2", from, sess->channel);
 	gchar *nick;
 
 	if (prefs.colorednicks)
 	{
-		nick = g_strdup(temp);
-		g_free(temp);
+		nick = g_strdup(tempc);
+		g_free(tempc);
 	}
 	else
 	{
-		nick = g_strdup(from);
+		nick = g_strdup(tempn);
+		g_free(tempn);
 	}
 
 	session_print_format(main_sess, "channel message", nick, nickchar, idtext, message);
