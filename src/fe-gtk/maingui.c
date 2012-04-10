@@ -156,7 +156,7 @@ fe_set_tab_color (struct session *sess, int col)
 	struct session *server_sess = sess->server->server_session;
 
 	/* not a real IRC session */
-	if (sess->fake_server || server_sess->fake_server)
+	if (sess->fake || server_sess->fake)
 		return;
 
 	if (sess->gui->is_tab && (col == 0 || sess != current_tab))
@@ -446,7 +446,7 @@ mg_focus (session *sess)
 	}
 
 	/* fake server tab */
-	if (sess->fake_server)
+	if (sess->fake)
 		gtk_widget_hide (sess->gui->input_box);
 	else
 		gtk_widget_show (sess->gui->input_box);
@@ -1237,7 +1237,7 @@ mg_tab_contextmenu_cb (chanview *cv, chan *ch, int tag, gpointer ud, GdkEventBut
 
 	menu = gtk_menu_new ();
 
-	if (tag == TAG_IRC && !sess->fake_server)
+	if (tag == TAG_IRC && !sess->fake)
 	{
 		if (sess->type == SESS_SERVER)
 		{

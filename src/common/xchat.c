@@ -332,7 +332,7 @@ session *
 new_ircwindow_fake (server *serv, char *name, int type, int focus)
 {
 	session *sess = new_ircwindow (serv, name, type, focus);
-	sess->fake_server = 1;
+	sess->fake = 1;
 	return sess;
 }
 
