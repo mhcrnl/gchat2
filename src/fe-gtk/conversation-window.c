@@ -39,20 +39,15 @@
 #include "maingui.h"
 #include "rawlog.h"
 #include "textgui.h"
-#include "xtext.h"
 #include "conversation-window.h"
-
-#define CONVERSATION_WINDOW_XTEXT
 
 typedef struct {
 	ConversationWindow public_info;
 	GtkWidget *xtext, *vs;
 } ConversationWindowPriv;
 
-#ifdef CONVERSATION_WINDOW_XTEXT
+#ifdef USE_WEBKIT
+#include "conversation-window-webkit.c"
+#else
 #include "conversation-window-xtext.c"
-#endif
-
-#ifdef CONVERSATION_WINDOW_PRINT
-#include "conversation-window-print.c"
 #endif

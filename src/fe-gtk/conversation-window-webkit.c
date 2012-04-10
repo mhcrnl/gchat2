@@ -19,14 +19,26 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
  */
 
+#include <webkit/webkit.h>
+
 ConversationWindow *
 conversation_window_new(void)
 {
+	ConversationWindowPriv *priv_win = g_slice_new0(ConversationWindowPriv);
+	ConversationWindow *win = (ConversationWindow *) priv_win;
+	GtkWidget *sw   = GTK_WIDGET(gtk_scrolled_window_new(NULL, NULL));
+	GtkWidget *view = GTK_WIDGET(webkit_web_view_new());
+
+	gtk_container_add(GTK_CONTAINER(sw), view);
+	win->widget = sw;
+	gtk_widget_show_all(win->widget);
+	return win;
 }
 
 void
 conversation_window_update_preferences(ConversationWindow *win)
 {
+
 }
 
 void
@@ -44,6 +56,7 @@ conversation_window_set_contextmenu_function(ConversationWindow *win, void (*cal
 gpointer
 conversation_window_get_opaque_buffer(ConversationWindow *win)
 {
+	return NULL;
 }
 
 void
@@ -54,6 +67,7 @@ conversation_window_set_opaque_buffer(ConversationWindow *win, gpointer buf)
 gpointer
 conversation_buffer_new(ConversationWindow *win, gboolean timestamp)
 {
+	return NULL;
 }
 
 void

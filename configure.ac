@@ -50,6 +50,7 @@ AH_VERBATIM([USE_SHM],[#undef USE_SHM])
 AH_VERBATIM([USE_GTKSPELL],[#undef USE_GTKSPELL])
 AH_VERBATIM([USE_LIBSEXY],[#undef USE_LIBSEXY])
 AH_VERBATIM([USE_IPV6],[#undef USE_IPV6])
+AH_VERBATIM([USE_WEBKIT],[#undef USE_WEBKIT])
 AH_VERBATIM([USE_MMX],[#undef USE_MMX])
 AH_VERBATIM([USE_PLUGIN],[#undef USE_PLUGIN])
 AH_VERBATIM([USE_SIGACTION],[#undef USE_SIGACTION])
@@ -116,12 +117,16 @@ AC_ARG_ENABLE(socks,
         socks=$enableval, socks=no)
 
 AC_ARG_ENABLE(ipv6,
-[  --disable-ipv6            disable IPv6 (default: enabled)],
+[  --disable-ipv6          disable IPv6 (default: enabled)],
         ipv6=$enableval, ipv6=yes)
 
 AC_ARG_ENABLE(gnutls,
-[  --enable-gnutls           enable use of GnuTLS],
+[  --enable-gnutls         enable use of GnuTLS],
         gnutls=$enableval, [gnutls=yes])
+
+AC_ARG_ENABLE(webkit,
+[  --enable-webkit         use WebKit rendering engine instead of xtext],
+        webkit=$enableval, [webkit=no])
 
 AC_ARG_ENABLE(gtkfe,
 [  --disable-gtkfe         disable building gtk frontend],
@@ -217,8 +222,20 @@ if test "$mowgli" = no; then
 	AC_MSG_ERROR("Cannot find acceptable version of mowgli. http://www.atheme.org/Projects/Libmowgli")
 fi
 
-COMMON_CFLAGS="$GLIB_CFLAGS $MOWGLI_CFLAGS"
-COMMON_LIBS="$GLIB_LIBS $MOWGLI_LIBS"
+COMMON_CFLAGS="$COMMON_CFLAGS $MOWGLI_CFLAGS"
+COMMON_LIBS="$COMMON_LIBS $MOWGLI_LIBS"
+
+dnl *********************************************************************
+dnl ** WebKit ***********************************************************
+dnl *********************************************************************
+
+if test "$webkit" = yes; then
+	PKG_CHECK_MODULES(WEBKIT, [webkit-1.0], webkit=yes, webkit=no)
+	if test "$webkit" = no; then
+		AC_MSG_ERROR("Cannot find WebKitGTK+")
+	fi
+	AC_DEFINE(USE_WEBKIT)
+fi
 
 dnl *********************************************************************
 dnl ** IPv6 *************************************************************
@@ -530,8 +547,8 @@ dnl freebsd needs this
 LIBS="$LIBS $INTLLIBS"
 CFLAGS="$CFLAGS $CPPFLAGS -D_CONSPIRE_INTERNAL"
 
-GUI_CFLAGS="$GTK_CFLAGS $SEXY_CFLAGS $NOTIFY_CFLAGS $COMMON_CFLAGS"
-GUI_LIBS="$GTK_LIBS $SEXY_LIBS $NOTIFY_LIBS $COMMON_LIBS -lm"
+GUI_CFLAGS="$GTK_CFLAGS $SEXY_CFLAGS $NOTIFY_CFLAGS $WEBKIT_CFLAGS $COMMON_CFLAGS"
+GUI_LIBS="$GTK_LIBS $SEXY_LIBS $NOTIFY_LIBS $COMMON_LIBS $WEBKIT_LIBS -lm"
 
 dnl make these visible to all Makefiles
 AC_SUBST(GUI_LIBS)
@@ -571,6 +588,8 @@ extra.mk
 conspire.pc
 ])
 
+if test "$webkit" = "yes"; then render="WebKit"; else render="xtext"; fi
+
 echo
 echo "Configuration:"
 echo
@@ -581,4 +600,5 @@ echo "  IPv6 support:                           ${ipv6}"
 echo "  Plugin loader:                          ${plugin}"
 echo "  - Python Plugin:                        ${python}"
 echo "  Regex substitution support:             ${regex}"
+echo "  Text window renderer:                   ${render}"
 echo
