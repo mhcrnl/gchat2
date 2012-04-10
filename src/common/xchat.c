@@ -895,6 +895,7 @@ xchat_init (void)
 	servlist_init ();							/* load server list */
 
 	main_sess = new_ircwindow_fake (NULL, _(DISPLAY_NAME), SESS_SERVER, 0);
+    main_sess->immutable = TRUE;
 
 	/* turned OFF via -a arg */
 	if (!arg_dont_autoconnect && servlist_have_auto())

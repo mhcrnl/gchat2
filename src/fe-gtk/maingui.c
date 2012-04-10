@@ -446,10 +446,14 @@ mg_focus (session *sess)
 	}
 
 	/* fake server tab */
-	if (sess->fake)
+	if (sess->fake) {
 		gtk_widget_hide (sess->gui->input_box);
-	else
+		gtk_widget_hide (sess->gui->topic_bar);
+	}
+	else {
 		gtk_widget_show (sess->gui->input_box);
+		gtk_widget_show (sess->gui->topic_bar);
+	}
 }
 
 /* switching tabs away from this one, so remember some info about it! */
@@ -1271,10 +1275,10 @@ mg_tab_contextmenu_cb (chanview *cv, chan *ch, int tag, gpointer ud, GdkEventBut
 	gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
 	gtk_widget_show (item);
 
-	mg_create_icon_item (_("_Detach Tab"), GTK_STOCK_REDO, menu,
-								mg_detach_tab_cb, ch);
-	mg_create_icon_item (_("_Close Tab"), GTK_STOCK_CLOSE, menu,
-								mg_destroy_tab_cb, ch);
+	if (!sess->immutable) {
+		mg_create_icon_item (_("_Detach Tab"), GTK_STOCK_REDO, menu, mg_detach_tab_cb, ch);
+		mg_create_icon_item (_("_Close Tab"), GTK_STOCK_CLOSE, menu, mg_destroy_tab_cb, ch);
+	}
 
 	if (sess && tabmenu_list)
 		menu_create (menu, tabmenu_list, sess->channel, FALSE);

@@ -17,6 +17,7 @@
  */
 
 #include <glib.h>
+#include <gtk/gtk.h>
 
 #include "common/plugin.h"
 #include "common/xchat.h"
@@ -29,9 +30,10 @@ static session *my_sess;
 static void
 process_callback(gpointer *params, int action)
 {
-
-	if (!my_sess)
-		my_sess = new_ircwindow_fake (main_sess->server, "Highlights", SESS_DIALOG, 0);
+    if (!my_sess) {
+	    my_sess = new_ircwindow_fake(main_sess->server, "Highlights", SESS_DIALOG, 0);
+        my_sess->immutable = TRUE;
+    }
 
 	session *sess   = params[0];
 	gchar *from     = params[1];
@@ -40,7 +42,9 @@ process_callback(gpointer *params, int action)
 	gchar *idtext   = params[4];
 	gint nickcolor  = color_of(from);
 	gint chancolor  = color_of(sess->channel);
-	gchar *tempc = g_strdup_printf("\x03%d%s\x03 \2(\2\x03%d%s\x03\2)\2", nickcolor, from, chancolor, sess->channel);
+    char *channame  = sess->channel;
+
+	gchar *tempc = g_strdup_printf("\x03%d%s\x03 \2(\2\x03%d%s\x03\2)\2", nickcolor, from, chancolor, ++channame);
 	gchar *tempn = g_strdup_printf("%s \2(\2%s\2)\2", from, sess->channel);
 	gchar *nick;
 
@@ -87,6 +91,7 @@ init(Plugin *p)
 gboolean
 fini(Plugin *p)
 {
+    session_free(my_sess);
 	signal_disconnect("action public hilight", process_action);
 	signal_disconnect("message public hilight", process_message);
 
