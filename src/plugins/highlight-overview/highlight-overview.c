@@ -24,9 +24,15 @@
 #include "common/signal_factory.h"
 #include "common/text.h"
 
+static session *my_sess;
+
 static void
 process_callback(gpointer *params, int action)
 {
+
+	if (!my_sess)
+		my_sess = new_ircwindow_fake (main_sess->server, "Highlights", SESS_DIALOG, 0);
+
 	session *sess   = params[0];
 	gchar *from     = params[1];
 	gchar *message  = params[2];
@@ -50,9 +56,9 @@ process_callback(gpointer *params, int action)
 	}
 
 	if (action)
-		session_print_format(main_sess, "channel action", nick, nickchar, message);
+		session_print_format(my_sess, "channel action", nick, nickchar, message);
 	else
-		session_print_format(main_sess, "channel message", nick, nickchar, idtext, message);
+		session_print_format(my_sess, "channel message", nick, nickchar, idtext, message);
 
 	g_free(nick);
 }
@@ -72,8 +78,8 @@ process_message(gpointer *params)
 gboolean
 init(Plugin *p)
 {
-	signal_attach("action public", process_action);
-	signal_attach("message public", process_message);
+	signal_attach("action public hilight", process_action);
+	signal_attach("message public hilight", process_message);
 
 	return TRUE;
 }
@@ -81,12 +87,12 @@ init(Plugin *p)
 gboolean
 fini(Plugin *p)
 {
-	signal_disconnect("action public", process_action);
-	signal_disconnect("message public", process_message);
+	signal_disconnect("action public hilight", process_action);
+	signal_disconnect("message public hilight", process_message);
 
 	return TRUE;
 }
 
-PLUGIN_DECLARE("Message Overview", PACKAGE_VERSION, 
-	"Allows you to view all message activity in a single buffer.",
+PLUGIN_DECLARE("Highlight Overview", PACKAGE_VERSION, 
+	"An easy way to view your highlights and queries.",
 	"Mitchell Cooper", init, fini);

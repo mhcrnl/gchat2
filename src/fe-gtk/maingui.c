@@ -154,6 +154,11 @@ void
 fe_set_tab_color (struct session *sess, int col)
 {
 	struct session *server_sess = sess->server->server_session;
+
+	/* not a real IRC session */
+	if (sess->fake_server || server_sess->fake_server)
+		return;
+
 	if (sess->gui->is_tab && (col == 0 || sess != current_tab))
 	{
 		switch (col)
