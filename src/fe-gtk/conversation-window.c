@@ -41,11 +41,6 @@
 #include "textgui.h"
 #include "conversation-window.h"
 
-typedef struct {
-	ConversationWindow public_info;
-	GtkWidget *xtext, *vs;
-} ConversationWindowPriv;
-
 #ifdef USE_WEBKIT
 #include "conversation-window-webkit.c"
 #else

@@ -34,8 +34,9 @@ process_callback(gpointer *params, int action)
 	gchar *idtext   = params[4];
 	gint nickcolor  = color_of(from);
 	gint chancolor  = color_of(sess->channel);
-	gchar *tempc = g_strdup_printf("\x03%d%s\x03 \2(\2\x03%d%s\x03\2)\2", nickcolor, from, chancolor, sess->channel);
-	gchar *tempn = g_strdup_printf("%s \2(\2%s\2)\2", from, sess->channel);
+    char *chan      = sess->channel; chan++;
+	gchar *tempc    = g_strdup_printf("\x03%d%s\x03 \2(\2\x03%d%s\x03\2)\2", nickcolor, from, chancolor, chan);
+	gchar *tempn    = g_strdup_printf("%s \2(\2%s\2)\2", from, chan);
 	gchar *nick;
 
 	if (prefs.colorednicks)

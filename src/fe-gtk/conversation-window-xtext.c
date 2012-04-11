@@ -21,6 +21,11 @@
 
 #include "xtext.h"
 
+typedef struct {
+	ConversationWindow public_info;
+	GtkWidget *xtext, *vs;
+} ConversationWindowPriv;
+
 ConversationWindow *
 conversation_window_new(void)
 {

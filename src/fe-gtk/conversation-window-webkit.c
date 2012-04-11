@@ -21,17 +21,35 @@
 
 #include <webkit/webkit.h>
 
+static int buf_id = 0;
+
+typedef struct {
+	ConversationWindow public_info;
+	WebKitWebView *view;
+	WebKitWebFrame *frame;
+	JSGlobalContextRef *js;
+} ConversationWindowPriv;
+
+typedef struct cbuffer {
+	int id;
+	ConversationWindow *win;
+} cbuffer;
+
 ConversationWindow *
 conversation_window_new(void)
 {
 	ConversationWindowPriv *priv_win = g_slice_new0(ConversationWindowPriv);
 	ConversationWindow *win = (ConversationWindow *) priv_win;
-	GtkWidget *sw   = GTK_WIDGET(gtk_scrolled_window_new(NULL, NULL));
-	GtkWidget *view = GTK_WIDGET(webkit_web_view_new());
-
-	gtk_container_add(GTK_CONTAINER(sw), view);
+	GtkWidget *sw = GTK_WIDGET(gtk_scrolled_window_new(NULL, NULL));
+	priv_win->view = WEBKIT_WEB_VIEW(webkit_web_view_new());
+	priv_win->frame = webkit_web_view_get_main_frame(priv_win->view);
+	priv_win->js = webkit_web_frame_get_global_context(priv_win->frame);
 	win->widget = sw;
-	gtk_widget_show_all(win->widget);
+
+	gtk_container_add(GTK_CONTAINER(sw), GTK_WIDGET(priv_win->view));
+	gtk_widget_show_all(sw);
+	webkit_web_view_load_uri(priv_win->view, CONSPIRE_SHAREDIR "/conspire/www/text.html");
+
 	return win;
 }
 
@@ -67,7 +85,14 @@ conversation_window_set_opaque_buffer(ConversationWindow *win, gpointer buf)
 gpointer
 conversation_buffer_new(ConversationWindow *win, gboolean timestamp)
 {
-	return NULL;
+	cbuffer *buf;
+
+	buf = malloc (sizeof (struct cbuffer));
+	memset (buf, 0, sizeof (struct cbuffer));
+	buf->id = buf_id++;
+	buf->win = win;
+
+	return buf;
 }
 
 void
@@ -88,6 +113,7 @@ conversation_buffer_clear(gpointer buf)
 void
 conversation_window_append_text(ConversationWindow *win, guchar *text, time_t stamp)
 {
+
 }
 
 void
